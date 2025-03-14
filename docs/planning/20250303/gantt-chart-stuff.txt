@@ -1,0 +1,17 @@
+
+
+2) We've chosen to use Google Sheets.
+
+4) We'll meet on Thursdays during class time.
+
+5) A browser poker game that people can connect to and play Hold Em.
+Plan B is a local poker game that people can play hot-seat.
+Plan A+ is a browser game with more poker variants than just Hold Em.
+
+6) Design Doc -> Game Logic -> Server/Client Logic -> UI -> Art -> Hosting
+
+7) Key risks:
+ - Making sure we can actually host it
+    - Plan: Talk to COSI
+ - Figuring out a website domain
+    - Plan: I (Calvin) have done this before and know how, but would need COSI's help

@@ -1,0 +1,9 @@
+I don't remember when I did all of this, but here's the work I remember doing recently.
+
+Researching what technologies we would need - 2 hours
+Learning HTML and CSS - 3 hours
+Learning JS/Node - 3 hours
+Coding really small sample project just to make sure I understand
+how the project needs to be structured - 2 hours
+Gantt Chart - 1 hour
+Determining project structure - 2 hours
