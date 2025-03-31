@@ -1,3 +1,4 @@
+BEFORE BREAK:
 I don't remember when I did all of this, but here's the work I remember doing recently.
 
 Researching what technologies we would need - 2 hours
@@ -7,3 +8,18 @@ Coding really small sample project just to make sure I understand
 how the project needs to be structured - 2 hours
 Gantt Chart - 1 hour
 Determining project structure - 2 hours
+
+
+We agreed not to work on the project over spring break.
+
+
+3/25:
+Group Meeting (1 hr)
+HTML/CSS practice webpage (.5 hr)
+
+3/27:
+More JS tutorials (2 hr)
+
+3/28:
+Learning how WebSockets work/how to do basic website request handling (1.5 hr)
+Working on sample site because I'm supposed to wait for my groupmates to post thier things so I can work on mine (2.5 hr)
