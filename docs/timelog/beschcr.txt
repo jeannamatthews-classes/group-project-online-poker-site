@@ -23,3 +23,13 @@ More JS tutorials (2 hr)
 3/28:
 Learning how WebSockets work/how to do basic website request handling (1.5 hr)
 Working on sample site because I'm supposed to wait for my groupmates to post thier things so I can work on mine (2.5 hr)
+
+4/6:
+Learning React.js (1 hr)
+Trying to understand the code teammates uploaded (1 hr)
+
+(I didn't do much this week because I was still supposed to wait for the team to do the poker logic and UI.
+My role was decided to be to get these two things to work together and with actual internet connections, and
+that stuff was just submitted today (4/6.) I learned and practiced the stuff I knew I would need and then didn't
+know what else to do, so I'll just work more on it this week. Although they did not end up using the project 
+structure in the design doc so I think my role will be a little more undefined and chaotic than I had expected.)
