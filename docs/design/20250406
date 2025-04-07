@@ -1,0 +1,7 @@
+Weekly Narrative/High Level Planning Document Updates:
+
+No major changes to our high level planning document. We are still on track to complete our plan A, and also have a fully functioning UI ready to go for RAPS on friday.
+This week we finished the skeleton for the UI and the backend Logic that will allow us to connect the two and create a fully functioning local poker game. We have yet to
+connect the two pieces, or add actual cards to the game yet, but we made great strides this week in creating a good skeleton. Calvin and Cody will do a majority of the work
+of connecting what Jason and Sam built this past week. The only minor road block we ran into thus far was Jason and Sam worked on different repositories so when they pushed their code to GIT
+there were overriding issues. However the backend logic has been added as a JS file within the react project that is now stored on Github.
