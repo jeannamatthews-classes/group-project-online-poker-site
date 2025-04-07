@@ -1,7 +1,7 @@
 // current known problems/things to be implemented later
 // bots logic is not implemented, just set to fold. therefore we cannot test if betting works correctly or if the pot works correctly
 // bots dont check, it just immediately goes to showdown after the player folds
-//  no raising preflop, probably no raising allowed at all yet
+//  no raising preflop, no raising allowed at all yet
 
 const readline = require('readline');
 
