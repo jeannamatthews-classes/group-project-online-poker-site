@@ -1,0 +1,61 @@
+March 14th 2025 Timelog:
+
+ - First I researched different tech stacks that I believed would help create our project. I found that React.JS and Node.JS would be the nmost helpful libraries (with Javascript being the best
+language). We discussed as a team that IDE did not matter and we could use whatever we were most comfortable with.
+ - Then I began to sketch my UI ideas. I sketched a UI for the home screen and the game screen and wrote detailed descriptions about the functionalities of each of these screens
+and their features.
+ - Finally I fooled around with React.JS to get more comfortable with it as I begin to build the User Interface.
+
+
+
+March 30th 2025 Timelog: 
+
+Monday:
+- I continued to watch React tutorials to familiar myself with CSS and Javascript so that I had a better foundation to begin building our webpag with (1 hour 30 minutes)
+
+Tuesday:
+- I began work on the home page of the UI. I created the home page and added a background image, a text box and a join button to get to the game page (2 hours)
+
+Text box is used to enter the username of the player (required to join the game)
+Join button at this time did not do anything but eventually made it take player to the game page if they provided a username
+
+Wednesday:
+- No Work
+
+Thursday: 
+- Met with group (1 hour)
+- Mde stylistic changes to home page (30 minutes)
+
+Changed background image, font colors, location of text and components and resizing
+
+Friday/Saturday:
+- Began work on the Game page for the UI. Added a start game button, and spent a good amount of time learning how to format and organize different elements of a webpage (2 hours)
+
+Right now there is only a start game button that does nothing, but soon will update to have button start a game of poker and have more options appear when pressed
+Also have text sharing the username to make sure that it is being properly stored when they join the game
+
+Sunday:
+No work
+
+I have yet to committ and code to Github, so to prove I did work I attatched screenshots of the work I completed.
+
+
+
+April 6th 2025 Timelog:
+
+Monday: Cleaned up the organization of JS components. Some of the containers were not in the correct places of the hierarchies. Also made minor stylistic changes (1 hour).
+
+Tuesday - Wednesday: No work, studying for exams
+
+Thursday: Met with Jason, and discussed the new way github materials were being organized. Also just caught each other up on the progress we were making. Then for the
+remaining duration of the meeting I worked on updating my CSS files to make the UI look slightly better (1 hour 30 minutes).
+
+Friday: No work two exams
+
+Saturday: Started by creating a a gamestate to handle whether or not a game of poker had yet to be started. This created three new buttons. I only implemeneted 1 of the buttons that being
+the Raise button, where I learned how to create an input box that only accepted integers and required input to submit a bet. I also learned how to change colors of a button whether or not
+certain criteria were met, and made the text box dissapear once the user submitted there bet amount (3 hours).
+
+Sunday: Documented my code, and created some endpoints for different game points to make it easier for those who are implementing the back end to edit my already made UI. I also spent a while 
+learning how to upload my repository to GIT, and connecting my VSCode to this repository (1 hour 30 minutes).
+
