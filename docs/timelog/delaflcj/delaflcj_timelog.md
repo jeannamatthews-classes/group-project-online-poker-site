@@ -1,3 +1,10 @@
+Week of 10 March
+This is a short list of what I've acomplished so far- 
+
+Worked on the GANTT chart witht the team
+Did a little bit of research with CSS and HTML since that's what we'll be using. But I haven't gotten too far with that
+Updated the design doc with my part about how users will host or join games.
+
 Week of 24 March
 Thursday: 
 - Met with group (1 hour)
