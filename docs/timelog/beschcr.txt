@@ -16,7 +16,7 @@ We agreed not to work on the project over spring break.
 3/25:
 Group Meeting (1 hr)
 HTML/CSS practice webpage (.5 hr)
-
+ 
 3/27:
 More JS tutorials (2 hr)
 
@@ -33,3 +33,24 @@ My role was decided to be to get these two things to work together and with actu
 that stuff was just submitted today (4/6.) I learned and practiced the stuff I knew I would need and then didn't
 know what else to do, so I'll just work more on it this week. Although they did not end up using the project 
 structure in the design doc so I think my role will be a little more undefined and chaotic than I had expected.)
+
+4/7:
+2 hrs: Reading through code, learning React (In understanding the codebase I know that I did not learn all that I needed), deciding what to do
+.5 hrs: Working on server state (ended up being GameState.js)
+
+4/8:
+2 hrs: I reviewed React docs and common practices and decided this is what needs to be done/how I want to do it:
+The server needs to be able to manage multiple games, so each game will have a GameState. Player specific info
+will be stored in a Player object.
+Somehow the GameState and Player objects will need to be stored and able to be accessed by components. I haven't
+decided how to do this.
+The Seat component will represent/render a player (i.e. a seat at the table.) There will be 8 per table.
+I've looked into React's Context API for storing some of this state and it will be helpful but some will
+need to be stored on the server so that the data syncs for all players (and cant be edited in the browser.)
+To update for actions that other players take, browsers will need to update in response to the server instead
+of only user input. I found some sources on how to do this but it is for later.
+2.5 hrs: Writing the Seat component. Also testing it and it doesn't work, so debugging for a bit.
+
+4/9: 
+1 hr: I fixed the Seat component and am about to commit. I did a bunch of stuff wrong, but now I feel a lot
+more comfortable writing components.
