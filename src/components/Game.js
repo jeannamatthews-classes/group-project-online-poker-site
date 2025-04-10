@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import './Game.css';
 
 function Game(){
+
+    const { gameId } = useParams();
+    
     const [username, setUsername] = useState(''); //Username that is stored for later use
     const [gameStarted, setGameStarted] = useState(false); //Variable that lets us know whether the game has started
     const[showBetInput, setShowBetInput] = useState(false); // Boolean variable that decides if the input box for betting should appear or not

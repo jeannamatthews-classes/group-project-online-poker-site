@@ -1,13 +1,15 @@
 export class GameState {
 
-  constructor(gameID, creator) {
+  constructor(gameID, initiator) {
     this.gameID = gameID;
-    this.players = [creator, {}, {}, {}, {}, {}, {}, {}];
+    this.players = [new Player(initiator), {}, {}, {}, {}, {}, {}, {}];
     this.turn = 1;
   }
 }
 
 export class Player {
-  name = null;
-  cards = [ null, null ];
+  constructor(name) {
+    this.name = username;
+    this.cards = [ null, null ];
+  }
 }

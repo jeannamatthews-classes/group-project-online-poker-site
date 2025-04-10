@@ -9,7 +9,7 @@ function App() {
       <Route path="/" element={
       <Home />
       } />
-      <Route path="/game" element={
+      <Route path="/game/:gameId" element={
       <Game />
       } />
 
@@ -18,3 +18,5 @@ function App() {
 }
 
 export default App;
+
+// TODO: Sanitize game Id input for security 
