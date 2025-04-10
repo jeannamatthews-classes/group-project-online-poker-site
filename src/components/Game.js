@@ -4,6 +4,7 @@ import './Game.css';
 
 function Game(){
 
+    const serverUrl = 'http://localhost:3001/';
     const { gameId } = useParams();
     
     const [username, setUsername] = useState(''); //Username that is stored for later use
@@ -25,7 +26,21 @@ function Game(){
         setBetAmount(''); 
         setShowBetInput(false);
     }
-    const handleCall = () => {} // Implemented in Backend
+    const handleCall = async () => {
+      try {
+        
+        const response = await fetch(serverUrl + 'call', {
+          method: 'POST',
+          headers: { 'Content-Type' : 'application/json' },
+          body: JSON.stringify({ gameId: gameId, player: username })
+        });
+
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+
     const handleFold = () => {} //Implemented in backend
 
     return(
@@ -46,7 +61,8 @@ function Game(){
                         <button className="game-button">Fold</button>
                         <button className="game-button"
                         onClick={() => setShowBetInput(prev => !prev)}>Raise</button>
-                        <button className="game-button">Call</button>
+                        <button className="game-button"
+                        onClick={handleCall}>Call</button>
                     </div>
 
                     {showBetInput && (

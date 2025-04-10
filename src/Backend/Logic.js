@@ -3,7 +3,7 @@
 // bots dont check, it just immediately goes to showdown after the player folds
 //  no raising preflop, no raising allowed at all yet
 
-const readline = require('readline');
+import readline from 'readline';
 
 function askQuestion(query) {
   const rl = readline.createInterface({
@@ -17,7 +17,7 @@ function askQuestion(query) {
   }));
 }
 
-class Player {
+export class Player {
   constructor(name, isHuman = false) {
     this.name = name;
     this.isHuman = isHuman;
@@ -34,7 +34,7 @@ class Player {
   }
 }
 
-class TexasHoldemGame {
+export class TexasHoldemGame {
   constructor() {
     this.deck = [];
     this.players = [new Player("You", true)];
@@ -48,6 +48,21 @@ class TexasHoldemGame {
     this.smallBlind = 10;
     this.bigBlind = 20;
   }
+
+  // Add a player to the game.
+  addPlayer(username) {}
+
+  // Performs a call for the given player.
+  playerCall(username) {}
+
+  // Performs a fold for the given player.
+  playerFold(username) {}
+
+  // Performs a raise for the given player.
+  playerRaise(username, amount) {}
+
+
+
 
   async startGame() {
     while (true) {
