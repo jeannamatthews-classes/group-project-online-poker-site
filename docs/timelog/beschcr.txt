@@ -54,3 +54,7 @@ of only user input. I found some sources on how to do this but it is for later.
 4/9: 
 1 hr: I fixed the Seat component and am about to commit. I did a bunch of stuff wrong, but now I feel a lot
 more comfortable writing components.
+1 hr: Working on where to store state. Started looking at ExpressJS.
+
+4/10:
+4 hrs: I started the ExpressJS backend. I added UI for choosing which game to play based on a game code. I made an API that the UI can call for user actions and started calling it for button pushes. I also outlined some methods I would need from Logic.js.
