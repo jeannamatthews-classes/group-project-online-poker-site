@@ -1,3 +1,15 @@
+
+# Poker Website
+
+## Usage
+
+Make sure to install the dependencies first: `npm install create-react-app cors express`
+To start the client (browser app): `npm start`
+To start the server (backend): `node src/server/index.js`
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
