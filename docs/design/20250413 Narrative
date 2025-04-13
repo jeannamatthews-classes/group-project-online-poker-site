@@ -1,0 +1,7 @@
+High level Narrative:
+
+This week was a chaotic one. Calvin was finally able to begin work on connecting the front end and the back end components of the website. After some slight changes on monday by Jason and Sam to update their parts
+Calvin got to work and began to create different game states and create a fully functional game. He soon ran into some issues though as the backend logic of the game was not yet compatible with the UI. This led to 
+Mcgee needing to update the backend to convert it to an API that would be compatible with the user interface. This led to a delay because Mcgee was busy with baseball and could not get it done until the weekend. 
+During this delay our team got hard at work preparing for RAPS and prepared a presentation for those of us who would be attending on Friday. After RAPS was over Mcgee updated the API which allowed Calvin to get back 
+to work updating the website.
