@@ -21,11 +21,24 @@ function Game(){
 
     const handleStartGame = ()=> setGameStarted(true); //Starting the game after start game button is pressed
 
-    const handleRaise = () => { //Stores the amount of money bet, and clears the input box
+    const handleRaise = async () => { //Stores the amount of money bet, and clears the input box
         setSubmittedBet(Number(betAmount));
         setBetAmount(''); 
         setShowBetInput(false);
+      try {
+        
+        const response = await fetch(serverUrl + 'bet', {
+          method: 'POST',
+          headers: { 'Content-Type' : 'application/json' },
+          body: JSON.stringify({ gameId: gameId, player: username, amount: betAmount })
+        });
+
+      } catch (error) {
+        console.log(error);
+      }
     }
+
+
     const handleCall = async () => {
       try {
         
@@ -41,7 +54,19 @@ function Game(){
     }
 
 
-    const handleFold = () => {} //Implemented in backend
+    const handleFold = async () => {
+      try {
+        
+        const response = await fetch(serverUrl + 'fold', {
+          method: 'POST',
+          headers: { 'Content-Type' : 'application/json' },
+          body: JSON.stringify({ gameId: gameId, player: username })
+        });
+
+      } catch (error) {
+        console.log(error);
+      }
+    }
 
     return(
         <div className="game-container">
