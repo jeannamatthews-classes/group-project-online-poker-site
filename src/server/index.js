@@ -3,7 +3,7 @@ import cors from 'cors'
 const app = express()
 const port = 3001
 
-import { TexasHoldemGame, Player } from '../Backend/Logic.js'; 
+// import { TexasHoldemGame, Player } from '../Backend/Logic.js'; 
 
 /*
  *  SERVER
@@ -11,6 +11,8 @@ import { TexasHoldemGame, Player } from '../Backend/Logic.js';
  *  by browsers that represent player actions. Requests and responses are JSON objects
  *  because from what little I know that seems to be somewhat standard.
  */
+
+let games = new Map();
 
 // Enables CORS, necessary to prevent browser blocking connections
 app.use(cors({
@@ -22,7 +24,6 @@ app.use(cors({
 app.use(express.json());
 
 
-let games = new Map();
 
 /* Puts a player into the game with the matching gameId if it exists. Create
  * the game before doing so if it does not.
@@ -109,6 +110,32 @@ app.post('/raise', (req, res) => {
   res.sendStatus(200);
 })
 
+
+/* Keeps clients updated on game state.
+ *
+ * Request expects fields 'player' and 'gameId'.
+ *
+ * This is probably inefficient, but I couldn't figure out how to make it better for now.
+ * I don't know how to make state change trigger an event within an HTTP endpoint.
+  */
+app.get('/events', (req, res) => {
+  res.setHeader('Content-Type', 'text/event-stream');
+  res.setHeader('Cache-Control', 'no-cache');
+  res.setHeader('Connection', 'keep-alive');
+
+  const interval = setInterval(() => {
+    // if game state changed, get and send to client in SSE format
+    res.write('[game state]\n\n');
+    console.log('updated game state');
+  }, 500);
+
+  req.on('close', () => {
+    clearInterval('interval');
+    res.end();
+  });
+
+})
+
 app.listen(port, () => {
-  console.log('listening on port ' + port);
+  console.log(`Example app listening on port ${port}`)
 })

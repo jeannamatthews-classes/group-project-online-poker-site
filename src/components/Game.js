@@ -6,6 +6,7 @@ function Game(){
 
     const serverUrl = 'http://localhost:3001/';
     const { gameId } = useParams();
+    let gameState = {}; // Local copy of game state
     
     const [username, setUsername] = useState(''); //Username that is stored for later use
     const [gameStarted, setGameStarted] = useState(false); //Variable that lets us know whether the game has started
@@ -17,6 +18,15 @@ function Game(){
 
     useEffect(() => { const storedUsername = localStorage.getItem('username'); //Storing the username
         if(storedUsername){setUsername(storedUsername);}
+    }, []);
+
+    // Subscribe to game state updates from the server
+    useEffect(() => {
+      const eventSrc = new EventSource(serverUrl + 'events');
+      
+      eventSrc.onmessage = function (event) {
+        gameState = event.data; // TODO: adjust once data format is decided
+      }
     }, []);
 
     const handleStartGame = ()=> setGameStarted(true); //Starting the game after start game button is pressed
