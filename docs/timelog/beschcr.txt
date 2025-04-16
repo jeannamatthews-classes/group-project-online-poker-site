@@ -58,3 +58,13 @@ more comfortable writing components.
 
 4/10:
 4 hrs: I started the ExpressJS backend. I added UI for choosing which game to play based on a game code. I made an API that the UI can call for user actions and started calling it for button pushes. I also outlined some methods I would need from Logic.js.
+
+4/15:
+2.5 hrs: I did some work on the Server API and connection it to the buttons in the UI. I started looking into how to implement
+dynamic updates of the client copies of game state, because React can only re-render in response to user input and not external
+changes. I looked at SSE.
+
+4/16: 2 hrs: I learned how to use SSE and implemented it as far as I can while I'm waiting for Jason to finish his game logic stuff.
+Right now there's a check happening every half second. I hope to remove the need for that but I don't know how to wait for an event
+started in a different function, which is what would need to happen because I would need to be recieving these state updates in my
+SSE endpoint.
