@@ -32,6 +32,11 @@ class TexasHoldemGame {
     this.players.push(new Player(name));
   }
 
+  // Get player by name
+  getPlayer(name) {
+    return this.players.find(player => name === player.name);
+  }
+
   newHand() {
     if (this.players.length < 2) return; // Ensure at least 2 players
 
@@ -83,7 +88,8 @@ class TexasHoldemGame {
     }
   }
 
-  getGameState(player) {
+  getGameState(playerName) {
+    let player = this.getPlayer(playerName);
     return {
       hand: player.hand,
       chips: player.chips,
@@ -103,7 +109,8 @@ class TexasHoldemGame {
     return this.players[this.currentTurnIndex].name;
   }
 
-  call(player) {
+  call(playerName) {
+    let player = this.getPlayer(playerName);
     const highestBet = Math.max(...this.players.map(p => p.currentBet));
     const callAmount = highestBet - player.currentBet;
     player.chips -= callAmount;
@@ -112,12 +119,14 @@ class TexasHoldemGame {
     this.advanceTurn();
   }
 
-  fold(player) {
+  fold(playerName) {
+    let player = this.getPlayer(playerName);
     player.folded = true;
     this.advanceTurn();
   }
 
-  raise(player, amount) {
+  raise(playerName, amount) {
+    let player = this.getPlayer(playerName);
     const highestBet = Math.max(...this.players.map(p => p.currentBet));
     const raiseAmount = (highestBet - player.currentBet) + amount;
     player.chips -= raiseAmount;

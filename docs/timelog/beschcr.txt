@@ -68,3 +68,6 @@ changes. I looked at SSE.
 Right now there's a check happening every half second. I hope to remove the need for that but I don't know how to wait for an event
 started in a different function, which is what would need to happen because I would need to be recieving these state updates in my
 SSE endpoint.
+
+4/18:
+3 hrs: With Jason's API-ified game logic, I was able to finally connect the server to the game logic with only a few changes to the latter. It doesn't work, though, and god only knows why. I will keep trying.

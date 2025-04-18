@@ -4,14 +4,28 @@ import './Home.css';
 
 function Home() {
 
+    const serverUrl = 'http://localhost:3001/';
+
     const[username, setUsername] = useState('');
       const[gameId, setGameId] = useState('');
       const navigate = useNavigate();
 
-      const handleJoinGame = () => { 
+      const handleJoinGame = async () => { 
           if(username.trim() !== ''){
               localStorage.setItem('username', username);
               navigate('/game/' + gameId);
+        
+            try {
+              
+              const response = await fetch(serverUrl + 'game', {
+                method: 'GET',
+                headers: { 'Content-Type' : 'application/json' },
+                body: JSON.stringify({ gameId: gameId, player: username })
+              });
+
+            } catch (error) {
+              console.log(error);
+            }
           }
           else{
               alert('Please Enter A Username Before Joining the Game');

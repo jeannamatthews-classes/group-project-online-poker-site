@@ -6,7 +6,7 @@ function Game(){
 
     const serverUrl = 'http://localhost:3001/';
     const { gameId } = useParams();
-    let gameState = {}; // Local copy of game state
+    const [gameState, setGameState] = useState({}); // Local copy of game state
     
     const [username, setUsername] = useState(''); //Username that is stored for later use
     const [gameStarted, setGameStarted] = useState(false); //Variable that lets us know whether the game has started
@@ -25,7 +25,8 @@ function Game(){
       const eventSrc = new EventSource(serverUrl + 'events');
       
       eventSrc.onmessage = function (event) {
-        gameState = event.data; // TODO: adjust once data format is decided
+        setGameState(event.data); // TODO: adjust once data format is decided
+        console.log(JSON.stringify(event.data));
       }
     }, []);
 
@@ -94,6 +95,7 @@ function Game(){
                     <h1 className="username-text">{username || 'Guest'}</h1>
                     <div className="gameplay-buttons">
                         <button className="game-button">Fold</button>
+                        onClick={handleFold}
                         <button className="game-button"
                         onClick={() => setShowBetInput(prev => !prev)}>Raise</button>
                         <button className="game-button"

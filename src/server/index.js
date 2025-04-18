@@ -3,7 +3,7 @@ import cors from 'cors'
 const app = express()
 const port = 3001
 
-// import { TexasHoldemGame, Player } from '../Backend/Logic.js'; 
+import { TexasHoldemGame } from '../Backend/Logic.js'; 
 
 /*
  *  SERVER
@@ -38,12 +38,11 @@ app.use(express.json());
 app.post('/game', (req, res) => {
   print(req.body)
   console.log('Recieved game join request for ' + req.body.gameId);
-  /*
+
   if (!games.has(req.body.gameId)) {
-    games.set(req.body.gameId, new TexasHoldemGame);
+    games.set(req.body.gameId, new TexasHoldemGame(req.body.player));
   }
     games.get(req.body.gameId).addPlayer(req.body.player);
-  */
 
   res.sendStatus(200);
 })
@@ -65,7 +64,7 @@ app.post('/game', (req, res) => {
   */
 app.get('/state', (req, res) => {
   console.log('Client ' + req.body.player + ' requested game state.');
-  // get game state, send it in response
+  res.json(games.get(req.body.gameId).getGameState(req.body.player));
 })
 
 /* Updates the game state in response to a call (or check) request from a player's
@@ -80,7 +79,7 @@ app.get('/state', (req, res) => {
   */
 app.post('/call', (req, res) => {
   console.log('Player ' + req.body.player + ' called.');
-  //games.get(req.body.gameId).playerCall(req.body.player);
+  games.get(req.body.gameId).call(req.body.player);
   res.sendStatus(200);
 })
 
@@ -93,7 +92,7 @@ app.post('/call', (req, res) => {
   */
 app.post('/fold', (req, res) => {
   console.log('Player ' + req.body.player + 'folded.');
-  //games.get(req.body.gameId).playerFold(req.body.player);
+  games.get(req.body.gameId).fold(req.body.player);
   res.sendStatus(200);
 })
 
@@ -105,8 +104,8 @@ app.post('/fold', (req, res) => {
   * the game logic.
   */
 app.post('/raise', (req, res) => {
-  console.log('Player ' + req.body.player + 'bet ' + req.body.amount + ' .');
-  //games.get(req.body.gameId).playerRaise(req.body.player, req.body.amount);
+  console.log('Player ' + req.body.player + 'bet ' + req.body.amount + '.');
+  games.get(req.body.gameId).raise(req.body.player, req.body.amount);
   res.sendStatus(200);
 })
 
