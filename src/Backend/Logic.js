@@ -142,6 +142,54 @@ class TexasHoldemGame {
   }
 }
 
+  evaluateHand(cards) {
+    const valuesOrder = '23456789TJQKA';
+    const valueCounts = {};
+    const suitCounts = {};
+    const values = [];
+
+    for (const card of cards) {
+      const [value, suit] = [card[0], card[1]];
+      valueCounts[value] = (valueCounts[value] || 0) + 1;
+      suitCounts[suit] = (suitCounts[suit] || 0) + 1;
+      values.push(value);
+    }
+
+    const sortedValues = [...new Set(values)]
+      .map(v => valuesOrder.indexOf(v))
+      .sort((a, b) => b - a);
+
+    const isFlush = Object.values(suitCounts).some(count => count >= 5);
+
+    const straights = [];
+    for (let i = 0; i <= sortedValues.length - 5; i++) {
+      if (sortedValues[i] - sortedValues[i + 4] === 4) {
+        straights.push(sortedValues[i]);
+      }
+    }
+    if (sortedValues.includes(12) && sortedValues.includes(3) && sortedValues.includes(2) && sortedValues.includes(1) && sortedValues.includes(0)) {
+      straights.push(3);
+    }
+
+    const counts = Object.entries(valueCounts).map(([v, c]) => [c, valuesOrder.indexOf(v)]);
+    counts.sort((a, b) => b[0] - a[0] || b[1] - a[1]);
+
+    const [count1, val1] = counts[0];
+    const [count2, val2] = counts[1] || [0, 0];
+
+    if (isFlush && straights.length) return { score: 9, description: "Straight flush" };
+    if (count1 === 4) return { score: 8, description: "Four of a kind" };
+    if (count1 === 3 && count2 === 2) return { score: 7, description: "Full house" };
+    if (isFlush) return { score: 6, description: "Flush" };
+    if (straights.length) return { score: 5, description: "Straight" };
+    if (count1 === 3) return { score: 4, description: "Three of a kind" };
+    if (count1 === 2 && count2 === 2) return { score: 3, description: "Two pair" };
+    if (count1 === 2) return { score: 2, description: "One pair" };
+
+    return { score: 1, description: `High card: ${valuesOrder[sortedValues[0]]}` };
+  }
+}
+
 module.exports = { TexasHoldemGame };
 
   
