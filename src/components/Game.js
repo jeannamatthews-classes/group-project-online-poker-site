@@ -94,8 +94,7 @@ function Game(){
                 <div className="bottom-content">
                     <h1 className="username-text">{username || 'Guest'}</h1>
                     <div className="gameplay-buttons">
-                        <button className="game-button">Fold</button>
-                        onClick={handleFold}
+                        <button className="game-button" onClick={handleFold}>Fold</button>
                         <button className="game-button"
                         onClick={() => setShowBetInput(prev => !prev)}>Raise</button>
                         <button className="game-button"

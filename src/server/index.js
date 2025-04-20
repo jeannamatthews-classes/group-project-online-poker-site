@@ -36,7 +36,7 @@ app.use(express.json());
  * when there are at least 2 players for simplicity's sake.
  */
 app.post('/game', (req, res) => {
-  print(req.body)
+  console.log(req.body)
   console.log('Recieved game join request for ' + req.body.gameId);
 
   if (!games.has(req.body.gameId)) {
@@ -63,7 +63,7 @@ app.post('/game', (req, res) => {
   * the information that needs to be on that player's UI.
   */
 app.get('/state', (req, res) => {
-  console.log('Client ' + req.body.player + ' requested game state.');
+  //console.log('Client ' + req.body.player + ' requested game state.');
   res.json(games.get(req.body.gameId).getGameState(req.body.player));
 })
 
@@ -125,7 +125,7 @@ app.get('/events', (req, res) => {
   const interval = setInterval(() => {
     // if game state changed, get and send to client in SSE format
     res.write('[game state]\n\n');
-    console.log('updated game state');
+    //console.log('updated game state');
   }, 500);
 
   req.on('close', () => {
