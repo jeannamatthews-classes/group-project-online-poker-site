@@ -1,20 +1,54 @@
 .home-container {
     position: relative;
     height: 100vh;
-    background-image: url('../assets/poker_stock_image.avif');
-    background-size: cover;
-    background-position: center;
     display: flex;
+    overflow: hidden;
     flex-direction: column;
     justify-content: center;
     align-items: center;
   }
+
+  .background-blur{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('../assets/new_home_page_image.jpg');
+    background-size: cover;
+    background-position: center;
+    filter: blur(10px);
+    z-index: 0;
+  }
+
+  .foreground-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+  
+  .home-box {
+    background-color: rgba(70, 63, 63, 0.881);
+    padding: 40px;
+    border-radius: 14px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    min-width: 400px;
+  }
   
   .home-title {
+    font-family: 'Copperplate', fantasy;
     font-size: 6rem;
-    color: black;
-    margin-top: -400px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    color: rgb(255, 255, 255);
+    margin-top: 0;
+    text-shadow: 2px 2px 4px rgb(82, 82, 82);
   }
 
   .username-join-container{
@@ -24,7 +58,7 @@
     gap: 30px;
   }
 
-  .username-input{
+  .user-input{
     padding: 10px;
     font-size: 1.2rem;
     border: 2px solid #000;
@@ -41,4 +75,20 @@
     background-color: #2196f3;
     color: white;
     cursor: pointer;
+    transition: background-color 0.3s ease;
   }
+  .join-button:hover {
+    background-color: #1b4364;
+  }
+
+.title-text{
+  font-family: 'Copperplate', fantasy;
+  font-size: 8rem;
+  color: #000000e0;
+  text-shadow: 2px 2px 4px rgb(194, 194, 194);
+  text-align: center;
+  position: absolute;
+  top: 10%; 
+  width: 100%;
+  z-index: 2;
+}

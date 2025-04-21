@@ -34,27 +34,33 @@ function Home() {
 
     return (
       <div className="home-container">
-        <h1 className="home-title">Poker Game</h1>
-        <div className="username-join-container">
-          <input
-              type="text"
-              className="username-input"
-              placeholder="Enter Your Username"
-              value={username}
-              onChange={(e)=> setUsername(e.target.value)}
-          />
-          <input
-              type="text"
-              className="gameid-input"
-              placeholder="Enter Game ID"
-              value={gameId}
-              onChange={(e)=> setGameId(e.target.value)}
-        />
-        <button className="join-button" onClick={handleJoinGame}>
-            Join Game
-        </button>
+        <div className="background-blur" /* Dont remove, as it neeeded for CSS Styling*/></div> 
+        <div className="foreground-content">
+            <div className="home-box">
+              <h1 className="home-title">Welcome!</h1>
+              <div className="username-join-container">
+                <input
+                type="text"
+                className="user-input"
+                placeholder="Enter Your Username"
+                value={username}
+                onChange={(e)=> setUsername(e.target.value)}
+                />
+                <input
+                type="text"
+                className="user-input" /* I changed this to user input, so it would be formated the same as the other text box. I can change back if necessary*/
+                placeholder="Enter Game ID"
+                value={gameId}
+                onChange={(e)=> setGameId(e.target.value)}
+                />
+                <button className="join-button" onClick={handleJoinGame}>
+                Join Game
+                </button>
+              </div>
+            </div>
         </div>
-    </div>
+        <h1 className="title-text">Online Poker Game</h1>
+      </div>
   );
 }
 
