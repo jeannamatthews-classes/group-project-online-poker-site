@@ -1,4 +1,4 @@
- from initial 20250314:
+from initial 20250314:
 Here is all of the work I did recently - 
 completed design document work. Namely completing the how the game works section. I also created the Gantt chart template and
 filled in most of the Gantt chart stuff. 
@@ -13,3 +13,7 @@ filled in most of the Gantt chart stuff.
 4/11/2025 - 02:00:00 - watched others presentation and presented at RAPS
 4/12/2025 - 03:00:00 - converted terminal running backend into an API
 4/12/2025 - 00:30:00 - updated the GANTT chart
+4/16/2025 - 05:00:00 - added requested functionality to the logic.js file
+4/20/2025 - 00:30:00 - updated GANTT chart
+4/20/2025 - 00:30:00 - readded the hand rankings function
+4/20/2025 - 00:05:00 - updated timelog
