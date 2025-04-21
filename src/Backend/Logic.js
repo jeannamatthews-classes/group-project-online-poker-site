@@ -1,4 +1,4 @@
-class Player {
+  class Player {
   constructor(name, isHuman = false) {
     this.name = name;
     this.isHuman = isHuman;
@@ -140,7 +140,6 @@ class TexasHoldemGame {
       this.currentTurnIndex = (this.currentTurnIndex + 1) % this.players.length;
     } while (this.players[this.currentTurnIndex].folded);
   }
-}
 
   evaluateHand(cards) {
     const valuesOrder = '23456789TJQKA';
