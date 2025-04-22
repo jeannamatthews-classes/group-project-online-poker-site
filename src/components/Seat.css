@@ -1,0 +1,34 @@
+.seat-container {
+  display: block
+}
+
+.name {
+  position: relative;
+  z-index: 3
+}
+
+.turn-indicator {
+  position: relative;
+  z-index: 2
+}
+
+.chips {
+  position: relative;
+  z-index: 2
+
+}
+
+.small-blind-indicator {
+  position: relative;
+  z-index: 1
+}
+
+.big-blind-indicator {
+  position: relative;
+  z-index: 1
+}
+
+.cards {
+  position: relative;
+  z-index: 4
+}

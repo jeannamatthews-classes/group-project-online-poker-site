@@ -51,16 +51,59 @@ class TexasHoldemGame {
       this.newHand();
   }
 
-  next() {
-      console.log(JSON.stringify(this.players));
+  nextTurn() {
 
       if (this.currentTurnIndex != this.dealerIndex) {
         this.currentTurnIndex = (this.currentTurnIndex + 1) % this.players.length;
-        console.log(`Now waiting for ${this.players[this.currentTurnIndex]}`);
+        if (this.players[this.currentTurnIndex].folded) {
+          console.log(`${this.players[this.currentTurnIndex].name} already folded. Skipping.`);
+          nextTurn();
+        } else {
+          console.log(`Waiting for ${this.players[this.currentTurnIndex].name}...`);
+        }
       } else {
-          newHand();
+        this.currentTurnIndex = (this.dealerIndex + 1) % this.players.length;
+        this.nextRound();
+        console.log(`Waiting for ${this.players[this.currentTurnIndex].name}...`);
       }
   }
+
+  nextRound() {
+        console.log(`Starting betting round ${this.bettingRound}`);
+
+        switch (this.bettingRound) {
+          case 1: //preflop
+            this.communityCards.push(this.deck.pop());
+            this.communityCards.push(this.deck.pop());
+            this.communityCards.push(this.deck.pop());
+            console.log(`Flop dealt. Community cards: ${JSON.stringify(this.communityCards)}`);
+            this.bettingRound++;
+            break;
+          case 2: //postflop
+            this.communityCards.push(this.deck.pop());
+            console.log(`Flop dealt. Community cards: ${JSON.stringify(this.communityCards)}`);
+            this.bettingRound++;
+            break;
+          case 3: //postturn
+            this.communityCards.push(this.deck.pop());
+            console.log(`Flop dealt. Community cards: ${JSON.stringify(this.communityCards)}`);
+            this.bettingRound++;
+            break;
+          case 4:
+            let winners = this.getWinners();
+            let prize = this.pot / winners.length;
+            winners.forEach((p) => {
+              p.chips += prize;
+            });
+            this.newHand();
+            break;
+
+      }
+
+      this.currentTurnIndex = (this.dealerIndex + 1) % this.players.length;
+
+  }
+
 
   newHand() {
 
@@ -79,11 +122,11 @@ class TexasHoldemGame {
     this.postBlinds();
     this.currentTurnIndex = (this.dealerIndex + 1) % this.players.length;
 
-    console.log(`Now waiting for ${this.players[this.currentTurnIndex]}`);
+    console.log(`Dealer is now ${this.players[this.dealerIndex].name}`);
+    console.log(`Now waiting for ${this.players[this.currentTurnIndex].name}`);
     this.players.map((p) => {
         console.log(p.hand);
       });
-    this.next();
   }
 
   postBlinds() {
@@ -158,7 +201,7 @@ class TexasHoldemGame {
 
   call(playerName) {
 
-    if(playerName !== this.getPlayer(this.currentTurnIndex)) { return }
+    if(playerName !== this.players[this.currentTurnIndex].name) { return }
 
     let player = this.getPlayer(playerName);
     const highestBet = Math.max(...this.players.map(p => p.currentBet));
@@ -166,20 +209,20 @@ class TexasHoldemGame {
     player.chips -= callAmount;
     player.currentBet += callAmount;
     this.pot += callAmount;
-    //this.advanceTurn();
+    this.nextTurn();
   }
 
   fold(playerName) {
-    if(playerName !== this.getPlayer(this.currentTurnIndex)) { return }
+    if(playerName !== this.players[this.currentTurnIndex].name) { return }
 
     let player = this.getPlayer(playerName);
     player.folded = true;
-    //this.advanceTurn();
+    this.nextTurn();
   }
 
   raise(playerName, amount) {
     
-    if(playerName !== this.getPlayer(this.currentTurnIndex)) { return }
+    if(playerName !== this.players[this.currentTurnIndex].name) { return }
 
     let player = this.getPlayer(playerName);
     const highestBet = Math.max(...this.players.map(p => p.currentBet));
@@ -187,13 +230,32 @@ class TexasHoldemGame {
     player.chips -= raiseAmount;
     player.currentBet += raiseAmount;
     this.pot += raiseAmount;
-    //this.advanceTurn();
+    this.nextTurn();
   }
 
   advanceTurn() {
     do {
       this.currentTurnIndex = (this.currentTurnIndex + 1) % this.players.length;
     } while (this.players[this.currentTurnIndex].folded);
+  }
+
+  getWinners() {
+      
+      let winners = [];
+
+      this.players.forEach((p) => {
+        if (winners.length === 0) {
+          winners.push(p);
+          return;
+        } else if (this.evaluateHand(p.hand).score === this.evaluateHand(winners[0].hand).score) {
+          winners.push(p);
+        } else if (this.evaluateHand(p.hand).score > this.evaluateHand(winners[0].hand).score) {
+            winners = [ p ];
+        }
+      });
+
+      return winners;
+
   }
 
   evaluateHand(cards) {

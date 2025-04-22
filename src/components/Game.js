@@ -112,9 +112,36 @@ function Game(){
                 </div>
             ) : (
                 <>
+                    <div className="community-card-display">
+                      <img
+                        src={cardImage(gameState.communityCards[0])}
+                        width={70}
+                        alt=""
+                      />
+                      <img
+                        src={cardImage(gameState.communityCards[1])}
+                        width={70}
+                        alt=""
+                      />
+                      <img
+                        src={cardImage(gameState.communityCards[2])}
+                        width={70}
+                        alt=""
+                      />
+                      <img
+                        src={cardImage(gameState.communityCards[3])}
+                        width={70}
+                        alt=""
+                      />
+                      <img
+                        src={cardImage(gameState.communityCards[4])}
+                        width={70}
+                        alt=""
+                      />
+                    </div>
                     {/* Top Center Display: Pot and Current Bet */}
                     <div className="center-display">
-                        <h1>Pot: ${Pot || 0}</h1>
+                        <h1>Pot: ${gameState.pot || 0}</h1>
                         {submittedBet !== null && <h3>Your Last Bet: ${submittedBet}</h3>}
                     </div>
 
@@ -176,5 +203,71 @@ function Game(){
             )}
         </div>
     );
+}
+
+
+function cardImage(cardString) {
+
+  let imagePath = '/images/Playing Cards/PNG-cards-1.3/';
+
+  if (cardString === null) {
+    return imagePath + 'back.png';
+  }
+
+  if (cardString === undefined) {
+    return imagePath + 'back.png';
+  }
+
+  if (cardString === 'hidden') {
+    return imagePath + 'back.png';
+  }
+
+  switch (cardString[0]) {
+    case 'T':
+      imagePath += '10';
+      break;
+    case 'J':
+      imagePath += 'jack';
+      break;
+    case 'Q':
+      imagePath += 'queen';
+      break;
+    case 'K':
+      imagePath += 'king';
+      break;
+    case 'A':
+      imagePath += 'ace';
+      break;
+    default: // its just a number
+      imagePath += cardString[0].toString();
+  }
+
+  imagePath += '_of_';
+
+  switch (cardString[1]) {
+    case 's':
+      imagePath += 'spades';
+      break;
+    case 'h':
+      imagePath += 'hearts';
+      break;
+    case 'c':
+      imagePath += 'clubs';
+      break;
+    case 'd':
+      imagePath += 'diamonds';
+      break;
+    default:
+      imagePath += 'oopsies';
+      break;
+  }
+
+  // comment this line out to use face cards without royals on them
+  if ((cardString[0] === 'J') || (cardString[0] === 'Q') || (cardString[0] === 'K')) {
+    imagePath += '2';
+  }
+
+  return imagePath + '.png';
+
 }
     export default Game;

@@ -1,14 +1,14 @@
-// TODO: text element doesn't print player name
-
+import './Seat.css'
 
 export default function Seat({ name, cards, chips, bet, isTurn = false, hasSmallBlind = false, hasBigBlind = false }) {
   return (
-    <>
-      <h2>{name}</h2>
-      { isTurn && <h2>Your Turn!</h2>}
-      <h4>{`Chips: ${chips} Bet: ${bet}`}</h4>
-      { hasSmallBlind && <h5>Small Blind</h5> }
-      { hasBigBlind && <h5>Big Blind</h5> }
+    <div className="seat-container">
+      <h2 className="name">{name}</h2>
+      { isTurn && <h2 className="turn-indicator">Your Turn!</h2>}
+      <h4 className="chips">{`Chips: ${chips} Bet: ${bet}`}</h4>
+      { hasSmallBlind && <h5 className="small-blind-indicator">Small Blind</h5> }
+      { hasBigBlind && <h5 className="big-blind-indicator">Big Blind</h5> }
+      <div className="cards">
       <img
         src={cardImage(cards[0])}
         width={70}
@@ -19,7 +19,8 @@ export default function Seat({ name, cards, chips, bet, isTurn = false, hasSmall
         width={70}
         alt=""
       />
-    </>
+      </div>
+    </div>
   )
 }
 
