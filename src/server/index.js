@@ -122,10 +122,12 @@ app.get('/events', (req, res) => {
   res.setHeader('Cache-Control', 'no-cache');
   res.setHeader('Connection', 'keep-alive');
 
+  console.log(`query: ${JSON.stringify(req.query)}`);
+
   const interval = setInterval(() => {
     // if game state changed, get and send to client in SSE format
-    res.write('[game state]\n\n');
-    //console.log('updated game state');
+    res.write(`data: ${JSON.stringify((games.get(req.query.gameId).getGameState(req.query.player)))}\n\n`);
+    console.log('sending game state:\n' + JSON.stringify((games.get(req.query.gameId).getGameState(req.query.player))) + '\n\n');
   }, 500);
 
   req.on('close', () => {

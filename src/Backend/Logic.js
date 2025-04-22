@@ -26,10 +26,13 @@ class TexasHoldemGame {
     this.smallBlind = 10;
     this.bigBlind = 20;
     this.currentTurnIndex = 0;
+
+    console.log('New game created.');
   }
 
   addPlayer(name) {
     this.players.push(new Player(name));
+    console.log(`Added player ${name} to the game.`);
   }
 
   // Get player by name
@@ -90,6 +93,9 @@ class TexasHoldemGame {
 
   getGameState(playerName) {
     let player = this.getPlayer(playerName);
+    if ( typeof player === "undefined") {
+      console.log(`Player ${playerName} was not found.`);
+    }
     return {
       hand: player.hand,
       chips: player.chips,

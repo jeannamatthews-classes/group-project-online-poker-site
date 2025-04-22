@@ -13,7 +13,7 @@ function Home() {
       const handleJoinGame = async () => { 
           if(username.trim() !== ''){
               localStorage.setItem('username', username);
-              navigate('/game/' + gameId);
+              navigate('/game/' + gameId + '/' + username);
         
             try {
               
