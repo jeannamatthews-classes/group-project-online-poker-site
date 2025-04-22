@@ -47,6 +47,11 @@ app.post('/game', (req, res) => {
   res.sendStatus(200);
 })
 
+app.post('/start', (req, res) => {
+  console.log('Starting game ' + req.body.gameId);
+  games.get(req.body.gameId).start();
+})
+
 /* Sends a copy of the current game state, as a JSON object, to the client
   * that sent the request.
   *
@@ -127,7 +132,7 @@ app.get('/events', (req, res) => {
   const interval = setInterval(() => {
     // if game state changed, get and send to client in SSE format
     res.write(`data: ${JSON.stringify((games.get(req.query.gameId).getGameState(req.query.player)))}\n\n`);
-    console.log('sending game state:\n' + JSON.stringify((games.get(req.query.gameId).getGameState(req.query.player))) + '\n\n');
+    //console.log('sending game state:\n' + JSON.stringify((games.get(req.query.gameId).getGameState(req.query.player))) + '\n\n');
   }, 500);
 
   req.on('close', () => {

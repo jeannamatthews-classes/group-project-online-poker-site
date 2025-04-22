@@ -6,6 +6,7 @@
     this.folded = false;
     this.chips = 1000;
     this.currentBet = 0;
+    this.revealed = false;
   }
 
   resetForNewRound() {
@@ -26,13 +27,18 @@ class TexasHoldemGame {
     this.smallBlind = 10;
     this.bigBlind = 20;
     this.currentTurnIndex = 0;
+    this.sbIndex = 0;
+    this.bbIndex = 0;
+    this.started = false;
 
     console.log('New game created.');
   }
 
   addPlayer(name) {
+    if (!(this.players.some(p => p.name === name))) {
     this.players.push(new Player(name));
     console.log(`Added player ${name} to the game.`);
+      }
   }
 
   // Get player by name
@@ -40,29 +46,55 @@ class TexasHoldemGame {
     return this.players.find(player => name === player.name);
   }
 
+  start() {
+      this.started = true;
+      this.newHand();
+  }
+
+  next() {
+      console.log(JSON.stringify(this.players));
+
+      if (this.currentTurnIndex != this.dealerIndex) {
+        this.currentTurnIndex = (this.currentTurnIndex + 1) % this.players.length;
+        console.log(`Now waiting for ${this.players[this.currentTurnIndex]}`);
+      } else {
+          newHand();
+      }
+  }
+
   newHand() {
+
+    console.log('Starting new hand...');
     if (this.players.length < 2) return; // Ensure at least 2 players
 
     this.resetDeck();
+    console.log(JSON.stringify(this.deck));
     this.shuffleDeck();
+    console.log(JSON.stringify(this.deck));
     this.players.forEach(player => player.resetForNewRound());
     this.dealHoleCards();
     this.bettingRound = 1;
     this.pot = 0;
     this.communityCards = [];
     this.postBlinds();
-    this.currentTurnIndex = (this.dealerIndex + 3) % this.players.length;
+    this.currentTurnIndex = (this.dealerIndex + 1) % this.players.length;
+
+    console.log(`Now waiting for ${this.players[this.currentTurnIndex]}`);
+    this.players.map((p) => {
+        console.log(p.hand);
+      });
+    this.next();
   }
 
   postBlinds() {
-    const sbIndex = (this.dealerIndex + 1) % this.players.length;
-    const bbIndex = (this.dealerIndex + 2) % this.players.length;
+    this.sbIndex = (this.dealerIndex + 2) % this.players.length;
+    this.bbIndex = (this.dealerIndex + 3) % this.players.length;
 
-    this.players[sbIndex].currentBet = this.smallBlind;
-    this.players[sbIndex].chips -= this.smallBlind;
+    this.players[this.sbIndex].currentBet = this.smallBlind;
+    this.players[this.sbIndex].chips -= this.smallBlind;
 
-    this.players[bbIndex].currentBet = this.bigBlind;
-    this.players[bbIndex].chips -= this.bigBlind;
+    this.players[this.bbIndex].currentBet = this.bigBlind;
+    this.players[this.bbIndex].chips -= this.bigBlind;
 
     this.pot += this.smallBlind + this.bigBlind;
   }
@@ -96,18 +128,27 @@ class TexasHoldemGame {
     if ( typeof player === "undefined") {
       console.log(`Player ${playerName} was not found.`);
     }
+
+    const playerInfo = this.players.map((p) => {
+          if ( (p.name !== player.name) && !p.revealed ) {
+            return {
+              ...p,
+              hand: [ 'hidden', 'hidden' ]
+            };
+          } else {
+            return { ...p };
+          }
+    });
+
+
     return {
-      hand: player.hand,
-      chips: player.chips,
+      started: this.started,
       pot: this.pot,
       communityCards: this.communityCards,
-      isTurn: this.players[this.currentTurnIndex] === player,
-      folded: player.folded,
-      otherPlayers: this.players.filter(p => p !== player).map(p => ({
-        name: p.name,
-        chips: p.chips,
-        folded: p.folded
-      }))
+      whoseTurn: this.players[this.currentTurnIndex].name,
+      smallBlind: this.players[this.sbIndex].name,
+      largeBlind: this.players[this.bbIndex].name,
+      players: playerInfo
     };
   }
 
@@ -116,29 +157,37 @@ class TexasHoldemGame {
   }
 
   call(playerName) {
+
+    if(playerName !== this.getPlayer(this.currentTurnIndex)) { return }
+
     let player = this.getPlayer(playerName);
     const highestBet = Math.max(...this.players.map(p => p.currentBet));
     const callAmount = highestBet - player.currentBet;
     player.chips -= callAmount;
     player.currentBet += callAmount;
     this.pot += callAmount;
-    this.advanceTurn();
+    //this.advanceTurn();
   }
 
   fold(playerName) {
+    if(playerName !== this.getPlayer(this.currentTurnIndex)) { return }
+
     let player = this.getPlayer(playerName);
     player.folded = true;
-    this.advanceTurn();
+    //this.advanceTurn();
   }
 
   raise(playerName, amount) {
+    
+    if(playerName !== this.getPlayer(this.currentTurnIndex)) { return }
+
     let player = this.getPlayer(playerName);
     const highestBet = Math.max(...this.players.map(p => p.currentBet));
     const raiseAmount = (highestBet - player.currentBet) + amount;
     player.chips -= raiseAmount;
     player.currentBet += raiseAmount;
     this.pot += raiseAmount;
-    this.advanceTurn();
+    //this.advanceTurn();
   }
 
   advanceTurn() {

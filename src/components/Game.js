@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import './Game.css';
+import Seat from './Seat.js'
 
 import Test from './Test.js';
 
@@ -27,7 +28,22 @@ function Game(){
       }
     }, []);
 
-    const handleStartGame = () => setGameStarted(true); //Starting the game after start game button is pressed
+    const handleStartGame = async () => {
+      
+        try {
+
+            const response = await fetch(serverUrl + 'start', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({gameId: gameId})
+            });
+
+        } catch (error) {
+            console.log(error);
+        }
+
+      setGameStarted(true); //Starting the game after start game button is pressed
+    }
 
     const handleRaise = async () => { //Stores the amount of money bet, and clears the input box
         setSubmittedBet(Number(betAmount));
@@ -79,12 +95,20 @@ function Game(){
 
     return (
         <div className="game-container">
-            {!gameStarted ? (
+            {!gameState.started ? (
                 <div className="bottom-content">
-                    <h1 className="username-text">{username || 'Guest'}, Press start to begin the game</h1>
+                    <h1 className="username-text">
+                      { username || 'Guest' },
+                      { ( gameState.players && (gameState.players.length > 1)) ?
+                      'Press start to begin the game.' :
+                      'Need one more player.'
+                      }
+                    </h1>
+                    { ( gameState.players && (gameState.players.length > 1)) &&
                     <div className="button-container">
                         <button className="game-button" onClick={handleStartGame}>Start</button>
                     </div>
+                    }
                 </div>
             ) : (
                 <>
@@ -95,23 +119,16 @@ function Game(){
                     </div>
 
                     <div className="players-info">
-                        {gameState.players?.map((player, index) => (
-                            <div
-                                key={player.name}
-                            >
-                                <p><strong>{player.name}</strong></p>
-                                <p>Chips: ${player.chips}</p>
-                                <p>Bet: ${player.currentBet || 0}</p>
-
-                                {/* Show cards only for self (optional security) */}
-                                {player.name === username && (
-                                    <div className="cards">
-                                        {player.cards?.map((card, idx) => (
-                                            <div key={idx} className="card">{card}</div>
-                                        ))}
-                                    </div>
-                                )}
-                            </div>
+                        {gameState.players.map((player) => (
+                          <Seat 
+                            name={player.name}
+                            cards={player.hand}
+                            chips={player.chips}
+                            bet={player.currentBet}
+                            isTurn={player.name === gameState.whoseTurn}
+                            hasSmallBlind={player.name === gameState.smallBlind}
+                            hasLargeBlind={player.name === gameState.largeBlind}
+                          /> 
                         ))}
                     </div>
 
@@ -119,10 +136,21 @@ function Game(){
                     <div className="bottom-content">
                         <h1 className="username-text">{username}</h1>
                         <div className="gameplay-buttons">
-                            <button className="game-button" onClick={handleFold}>Fold</button>
-                            <button className="game-button" onClick={() => setShowBetInput(prev => !prev)}>Raise
-                            </button>
-                            <button className="game-button" onClick={handleCall}>Call</button>
+                            <button
+                              className="game-button"
+                              onClick={handleFold}
+                              disabled={gameState.whoseTurn !== username}
+                            >Fold</button>
+                            <button 
+                              className="game-button" 
+                              onClick={() => setShowBetInput(prev => !prev)}
+                              disabled={gameState.whoseTurn !== username}
+                            >Raise</button>
+                            <button 
+                              className="game-button" 
+                              onClick={handleCall}
+                              disabled={gameState.whoseTurn !== username }
+                            >Call</button>
                         </div>
 
                         {showBetInput && (
@@ -137,7 +165,7 @@ function Game(){
                                 />
                                 <button
                                     className="bet-submit-button"
-                                    disabled={Number(betAmount) <= 0}
+                                    disabled={Number(betAmount) <= 0 || gameState.whoseTurn !== username }
                                     onClick={handleRaise}
                                 >Bet
                                 </button>
