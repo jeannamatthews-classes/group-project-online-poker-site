@@ -45,9 +45,7 @@
   
   .home-title {
     font-family: 'Copperplate', fantasy;
-    display: flex;
-    justify-content: flex-end;
-    font-size: 6rem;
+    font-size: clamp(2rem, 5vw, 8rem);
     color: rgb(255, 255, 255);
     margin-top: 0;
     text-shadow: 2px 2px 4px rgb(82, 82, 82);
@@ -85,7 +83,7 @@
 
 .title-text{
   font-family: 'Copperplate', fantasy;
-  font-size: clamp(2rem, 5vw, 6rem);
+  font-size: clamp(2rem, 10vw, 7rem);
   color: #000000e0;
   text-shadow: 2px 2px 4px rgb(194, 194, 194);
   text-align: center;

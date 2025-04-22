@@ -3,7 +3,7 @@
     height: 100vh;
     background-size: cover;
     background-position: center;
-    background-image: url('../assets/Game_page_background.jpg');
+    background-image: url('../assets/table2.jpg');
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -86,10 +86,59 @@
     transition: background-color 0.3s ease;
   }
   .bet-submit-button:disabled{
-    background-color: #666;
+    background-color: #667;
     cursor: not-allowed;
   }
 
   .bet-submit-button:not(:disabled):hover{
     background-color: #1b4364;
   }
+
+.center-display {
+  text-align: center;
+  margin-top: 20px;
+  color: black;
+
+}
+
+.players-info {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 80px;
+  margin-right: 800px;
+}
+
+.player-card {
+  padding: 10px;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  width: 150px;
+  text-align: center;
+  background-color: #f4f4f4;
+}
+
+.player-card.active-turn {
+  border-color: gold;
+  background-color: #fff8dc;
+}
+
+.cards {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  margin-top: 10px;
+}
+
+.card {
+  width: 30px;
+  height: 45px;
+  background-color: white;
+  border: 1px solid #333;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+

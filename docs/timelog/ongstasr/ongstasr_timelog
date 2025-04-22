@@ -72,4 +72,22 @@ Friday: RAPS Presentation (2 hours).
 Sunday: Updated Plan sheet to more accurately represent what our future plans were and also created our high level narative for the week (1 hour).
 
 
+April 20th 2025 Timelog:
+
+Monday-Wednesday: No work, busy with other classes.
+
+Thursday: Team meeting. We discussed what was left to be completed for the project, and divied up the remaining work. Calvin would finish connecting the backend to the UI, Cody would implement
+the game state UI and I would touch up the CSS file for the Home Page. I also made myself available to help them with whatever tasks were necessary to make sure we get this project done (2 hours).
+
+Friday: Begin work on updating the UI. I pulled the new changes from Github, and became familiar with the changes made since I last worked on the UI. I created a new container to put all of the
+home screen elements in them, and began formatting a new version of the UI that looked better. I also found public domain images (I think they are public domain at least) for playing cards
+that we could use to make our game look a little bit better(2 hours).
+
+Saturday: I updated the formatting of some of the newly added elements to make sure they all looked the same. I added a greay box to put all of the elements in, and learned how to change opacity of objects
+and add background blur. I also added an effect that allowed the game button to change color when you hover over it(2 hours).
+
+Sunday: I documented my code, and searched online for public domain images to replace the images we were using for our UI. I also changed the font of some of the text of elements, and overall just tweaked
+the CSS page to make the home page look a little bit nicer. I also then updated the high level planning sheet and the weekly narrative (1.5 hours).
+
+
 

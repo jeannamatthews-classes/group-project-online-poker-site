@@ -22,3 +22,10 @@ I was able to squeeze some things in but it isn't enough to push anything to the
 I was able to learn more Java Script for ~3 hours.
 Since Mcgee has started the backend for poker logic, but hasn't completly finished it yet, I will probably hop in and try to expand on that for this upcomming week.
 
+Week of 13 April:
+Saturday: ~3 horus
+My job now is to connect the ui to some of the logic we're now using. I am creating a way to display the pot properly and to display player information, like cards, bet, chips etc.
+I spent approx 3 hours trying to get some different things to work but I didn't get much coding progress done since the things I was trying weren't working but I have a good spot to start tomorrow, on Sunday.
+
+Sunday: ~2 hours
+I picked back up after talking with the team for a couple minutes. I didn't get the all of the variables inputted yet since Calvin wanted to set those up I think so he'll just replace the variable names with what he's got. I have to do a little bit more work to get it so when another player joins they're information will display in a new empty seat
