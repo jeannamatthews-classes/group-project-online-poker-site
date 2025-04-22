@@ -46,13 +46,13 @@ function Game(){
     }
 
     const handleRaise = async () => { //Stores the amount of money bet, and clears the input box
-        setSubmittedBet(Number(betAmount));
-        setBetAmount('');
-        setShowBetInput(false);
-        setPot(Pot+=Number(betAmount));
+        //setSubmittedBet(Number(betAmount));
+        //setBetAmount('');
+        //setShowBetInput(false);
+        //setPot(Pot+=Number(betAmount));
         try {
 
-            const response = await fetch(serverUrl + 'bet', {
+            const response = await fetch(serverUrl + 'raise', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({gameId: gameId, player: username, amount: betAmount})

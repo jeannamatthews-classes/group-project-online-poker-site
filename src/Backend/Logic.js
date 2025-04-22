@@ -225,7 +225,7 @@ class TexasHoldemGame {
   
     const player = this.getPlayer(playerName);
     const highestBet = Math.max(...this.players.map(p => p.currentBet));
-    const newBet = highestBet + amount;
+    const newBet = highestBet + Number(amount);
     let raiseAmount = newBet - player.currentBet;
   
     if (player.chips < raiseAmount) {
