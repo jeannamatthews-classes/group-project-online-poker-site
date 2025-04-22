@@ -1,4 +1,4 @@
-  class Player {
+class Player {
   constructor(name, isHuman = false) {
     this.name = name;
     this.isHuman = isHuman;
@@ -263,47 +263,111 @@ class TexasHoldemGame {
     const valueCounts = {};
     const suitCounts = {};
     const values = [];
-
+  
     for (const card of cards) {
       const [value, suit] = [card[0], card[1]];
       valueCounts[value] = (valueCounts[value] || 0) + 1;
       suitCounts[suit] = (suitCounts[suit] || 0) + 1;
       values.push(value);
     }
-
-    const sortedValues = [...new Set(values)]
-      .map(v => valuesOrder.indexOf(v))
-      .sort((a, b) => b - a);
-
+  
+    const uniqueValues = [...new Set(values)];
+    const sortedIndices = uniqueValues.map(v => valuesOrder.indexOf(v)).sort((a, b) => b - a);
     const isFlush = Object.values(suitCounts).some(count => count >= 5);
-
+  
     const straights = [];
-    for (let i = 0; i <= sortedValues.length - 5; i++) {
-      if (sortedValues[i] - sortedValues[i + 4] === 4) {
-        straights.push(sortedValues[i]);
+    for (let i = 0; i <= sortedIndices.length - 5; i++) {
+      if (sortedIndices[i] - sortedIndices[i + 4] === 4) {
+        straights.push(sortedIndices[i]);
       }
     }
-    if (sortedValues.includes(12) && sortedValues.includes(3) && sortedValues.includes(2) && sortedValues.includes(1) && sortedValues.includes(0)) {
+  
+    if ([12, 0, 1, 2, 3].every(v => sortedIndices.includes(v))) {
       straights.push(3);
     }
-
+  
     const counts = Object.entries(valueCounts).map(([v, c]) => [c, valuesOrder.indexOf(v)]);
     counts.sort((a, b) => b[0] - a[0] || b[1] - a[1]);
-
+  
     const [count1, val1] = counts[0];
     const [count2, val2] = counts[1] || [0, 0];
-
-    if (isFlush && straights.length) return { score: 9, description: "Straight flush" };
-    if (count1 === 4) return { score: 8, description: "Four of a kind" };
-    if (count1 === 3 && count2 === 2) return { score: 7, description: "Full house" };
-    if (isFlush) return { score: 6, description: "Flush" };
-    if (straights.length) return { score: 5, description: "Straight" };
-    if (count1 === 3) return { score: 4, description: "Three of a kind" };
-    if (count1 === 2 && count2 === 2) return { score: 3, description: "Two pair" };
-    if (count1 === 2) return { score: 2, description: "One pair" };
-
-    return { score: 1, description: `High card: ${valuesOrder[sortedValues[0]]}` };
+    const kickers = counts.map(([c, v]) => v);
+  
+    if (isFlush && straights.length) {
+      return {
+        score: 9,
+        description: "Straight flush",
+        tiebreaker: [straights[0]]
+      };
+    }
+  
+    if (count1 === 4) {
+      return {
+        score: 8,
+        description: "Four of a kind",
+        tiebreaker: [val1, ...kickers.filter(v => v !== val1)]
+      };
+    }
+  
+    if (count1 === 3 && count2 === 2) {
+      return {
+        score: 7,
+        description: "Full house",
+        tiebreaker: [val1, val2]
+      };
+    }
+  
+    if (isFlush) {
+      const flushCards = cards.filter(card => suitCounts[card[1]] >= 5);
+      const flushValues = flushCards.map(card => valuesOrder.indexOf(card[0])).sort((a, b) => b - a);
+      return {
+        score: 6,
+        description: "Flush",
+        tiebreaker: flushValues.slice(0, 5)
+      };
+    }
+  
+    if (straights.length) {
+      return {
+        score: 5,
+        description: "Straight",
+        tiebreaker: [straights[0]]
+      };
+    }
+  
+    if (count1 === 3) {
+      return {
+        score: 4,
+        description: "Three of a kind",
+        tiebreaker: [val1, ...kickers.filter(v => v !== val1).slice(0, 2)]
+      };
+    }
+  
+    if (count1 === 2 && count2 === 2) {
+      const val3 = kickers.find(v => v !== val1 && v !== val2);
+      const pairs = [val1, val2].sort((a, b) => b - a);
+      return {
+        score: 3,
+        description: "Two pair",
+        tiebreaker: [...pairs, val3]
+      };
+    }
+  
+    if (count1 === 2) {
+      return {
+        score: 2,
+        description: "One pair",
+        tiebreaker: [val1, ...kickers.filter(v => v !== val1).slice(0, 3)]
+      };
+    }
+  
+    return {
+      score: 1,
+      description: `High card: ${valuesOrder[sortedIndices[0]]}`,
+      tiebreaker: sortedIndices.slice(0, 5)
+    };
   }
+  
 }
 
 module.exports = { TexasHoldemGame };
