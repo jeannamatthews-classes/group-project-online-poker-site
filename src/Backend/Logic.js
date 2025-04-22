@@ -221,12 +221,17 @@ class TexasHoldemGame {
   }
 
   raise(playerName, amount) {
-    
-    if(playerName !== this.players[this.currentTurnIndex].name) { return }
-
-    let player = this.getPlayer(playerName);
+    if (playerName !== this.players[this.currentTurnIndex].name) return;
+  
+    const player = this.getPlayer(playerName);
     const highestBet = Math.max(...this.players.map(p => p.currentBet));
-    const raiseAmount = (highestBet - player.currentBet) + amount;
+    const newBet = highestBet + amount;
+    let raiseAmount = newBet - player.currentBet;
+  
+    if (player.chips < raiseAmount) {
+      raiseAmount = player.chips;
+    }
+  
     player.chips -= raiseAmount;
     player.currentBet += raiseAmount;
     this.pot += raiseAmount;
