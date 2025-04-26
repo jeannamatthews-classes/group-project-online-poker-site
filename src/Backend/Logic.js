@@ -7,12 +7,14 @@ class Player {
     this.chips = 1000;
     this.currentBet = 0;
     this.revealed = false;
+    this.hasActed = false;
   }
 
   resetForNewRound() {
     this.hand = [];
     this.folded = false;
     this.currentBet = 0;
+    this.hasActed = false;
   }
 }
 
@@ -50,23 +52,26 @@ class TexasHoldemGame {
       this.started = true;
       this.newHand();
   }
-
+  
   nextTurn() {
-
-      if (this.currentTurnIndex != this.dealerIndex) {
-        this.currentTurnIndex = (this.currentTurnIndex + 1) % this.players.length;
-        if (this.players[this.currentTurnIndex].folded) {
-          console.log(`${this.players[this.currentTurnIndex].name} already folded. Skipping.`);
-          nextTurn();
-        } else {
-          console.log(`Waiting for ${this.players[this.currentTurnIndex].name}...`);
-        }
-      } else {
-        this.currentTurnIndex = (this.dealerIndex + 1) % this.players.length;
-        this.nextRound();
-        console.log(`Waiting for ${this.players[this.currentTurnIndex].name}...`);
-      }
+    if (this.isBettingRoundOver()) {
+      this.nextRound(); // betting round ends
+      return;
+    }
+    do {
+      this.currentTurnIndex = (this.currentTurnIndex + 1) % this.players.length;
+    } while (this.players[this.currentTurnIndex].folded);
+    console.log(`Waiting for ${this.players[this.currentTurnIndex].name}...`);
   }
+
+  isBettingRoundOver() {
+    const highestBet = Math.max(...this.players.map(p => p.currentBet));
+  
+    return this.players.every(player => 
+      player.folded || 
+      (player.hasActed && player.currentBet === highestBet)
+    );
+  }  
 
   nextRound() {
         console.log(`Starting betting round ${this.bettingRound}`);
@@ -208,6 +213,7 @@ class TexasHoldemGame {
     const callAmount = highestBet - player.currentBet;
     player.chips -= callAmount;
     player.currentBet += callAmount;
+    player.hasActed = true;
     this.pot += callAmount;
     this.nextTurn();
   }
@@ -217,6 +223,7 @@ class TexasHoldemGame {
 
     let player = this.getPlayer(playerName);
     player.folded = true;
+    player.hasActed = true;
     this.nextTurn();
   }
 
@@ -234,7 +241,13 @@ class TexasHoldemGame {
   
     player.chips -= raiseAmount;
     player.currentBet += raiseAmount;
+    player.hasActed = true;
     this.pot += raiseAmount;
+    this.players.forEach(p => {
+      if (!p.folded && p.name !== player.name) {
+        p.hasActed = false;
+      }
+    });
     this.nextTurn();
   }
 
@@ -376,5 +389,4 @@ class TexasHoldemGame {
 }
 
 module.exports = { TexasHoldemGame };
-
   
