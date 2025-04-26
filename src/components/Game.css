@@ -67,16 +67,16 @@
     margin-top: 20px;
     flex-wrap: wrap;
   }
-  .bet-input{
+  .bet-input {
     padding: 10px;
-    font-size: 1rem;
-    font-size: 1rem;
-    width: 120px;
+    font-size: 1.2rem;
+    width: 125px;
     border-radius: 5px;
-    border: 2px solid #ccc;
+    border: 2px solid #000;
+    text-align: center;
   }
   .bet-submit-button{
-    padding: 10px 20px;
+    padding: 15px 25px;
     font-size: 1rem;
     border-radius: 5px;
     border: none;
