@@ -1,12 +1,12 @@
 # **User Instructions**
 
-## Before Running
+## Setup 💻 
 
 1. Install Node.js on your system (https://nodejs.org/en/download)
 2. Install react router dom ( run npm install react-router-dom on your system)
 3. Install the cors package (npm install cors)
 
-## After Installing Necessary Packages
+## Running The Game 🎰 🃏 💰
 1. Open two terminal windows
 2. CD both terminal windows into the Poker-UI directory (or whatever the React Project is titled on your system)
 3. On one terminal window start the server by running node src/server/index.js
