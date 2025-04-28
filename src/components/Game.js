@@ -177,7 +177,7 @@ function Game(){
                               className="game-button" 
                               onClick={handleCall}
                               disabled={gameState.whoseTurn !== username }
-                            >Call</button>
+                            >Call/Check</button>
                         </div>
 
                         {showBetInput && (
