@@ -90,4 +90,20 @@ Sunday: I documented my code, and searched online for public domain images to re
 the CSS page to make the home page look a little bit nicer. I also then updated the high level planning sheet and the weekly narrative (1.5 hours).
 
 
+April 27th 2025 Timelog:
+
+Monday: There was a bug in the code that made it so the text on the home page was formatted incorrectly on different sized screens. Updated the CSS file so that the text would be displayed
+differently depending on the size of the screen. This made it so that the text would not be broken into two lines on smaller screens. I also worked on the presentation, split up speaking parts
+and updated all housekeeping work before presenting on Tuesday (3 hours).
+
+Tuesday: I presented our project and made some last minute changes to that presentation, but I did not do much else (1 hour).
+
+Wednesday - Friday: No work
+
+Saturday: Updated the UI. The text box on the game page did not look the nicest, so I updated that text box to be more similar to the other input boxes on the website. I also created the Instructions for how to
+set up the website and use it. After creating the instruction manual, I uploaded our presentation to a new directory on our github page (2 hours).
+
+Sunday: Minor housekeeping to github (30 minutes).
+
+
 
