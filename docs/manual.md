@@ -2,6 +2,8 @@
 
 Make sure you have some sort of IDE or software installed to be able to run Javascript
 
+*For any other concerns that are not addressed in hear consult the Readme.md file!*
+
 ## Setup 💻 
 
 1. Install Node.js on your system (https://nodejs.org/en/download)
