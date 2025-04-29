@@ -17,3 +17,7 @@ filled in most of the Gantt chart stuff.
 4/20/2025 - 00:30:00 - updated GANTT chart
 4/20/2025 - 00:30:00 - readded the hand rankings function
 4/20/2025 - 00:05:00 - updated timelog
+4/21/2025 - 00:10:00 - fixed small bug
+4/22/2025 - 02:00:00 - fixed raising bugs and added functionality to deal with ties
+4/26/2025 - 01:00:00 - added cases to deal with reraising
+4/29/2025 - 00:25:00 - updated timelog and gantt chart
