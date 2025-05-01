@@ -71,3 +71,18 @@ SSE endpoint.
 
 4/18:
 3 hrs: With Jason's API-ified game logic, I was able to finally connect the server to the game logic with only a few changes to the latter. It doesn't work, though, and god only knows why. I will keep trying.
+
+4/20:
+2 hrs: I found the fix to the bug. The problem ended up being that my SSE requests were supposed to be POST but I was using GET.
+I also had to merge some changes since I was working on an old branch but it didn't end up being a huge deal.
+
+4/21:
+3.5 hrs: I tested and debugged the communication between the browser and server until it demonstrably worked. There were a lot of small things I got wrong (mostly in the files Backend/Logic.js, server/index.js, and components/Home.js if I remember correctly.)
+
+4/22:
+3 hrs: I worked on the player display (Game.js/Seat.js) and the game progression. So far, the server responds to player requests to draw, call, or fold, but not in an order that makes sense. In poker, each player does one of those options when it's thier turn only, and in a series of betting rounds in which more information about the community cards are revealed each time. There needs to be logic that makes things happen in the order they're supposed to in poker and that's what I'm working on.
+3 hrs: I worked more on the order of poker logic described above, got the cards to actually render based on what they're supposed to be/which players are supposed to know them, and tried to make the Seat CSS a little more sane.
+1 hr: I was testing previous changes and found a bug where betting would change the value of the pot and the player's chips to weird, very large values. I fixed it. It ended up being because the number in the Bet box, and in the resulting request to the server, was a string, and in javascript if you have a plus sign with a string and a number it implicitly changes the number to a string and treats it as string addition. Which is why 10 + 3 was 103.
+
+
+5/1: I realized today I haven't updated my changes to the log in a bit. Doing that now.
