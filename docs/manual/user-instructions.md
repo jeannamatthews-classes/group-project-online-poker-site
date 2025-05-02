@@ -14,6 +14,8 @@
 
 # 💰 Poker Rules 💰
 
+Below is described how a round of poker works, and what the different types of hands are.
+
 ## 🎰 How to Play 🎰
 
 At the start of the game the person directly to the left of the dealer is labeled the small blind. This person is forced to bet half of the minimum bet at the start of each game. After the small
