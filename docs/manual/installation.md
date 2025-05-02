@@ -1,4 +1,4 @@
-# **📌 User Instructions 📌**
+# **📌 Setup Instructions 📌**
 
 Make sure you have some sort of IDE or software installed to be able to run Javascript
 
