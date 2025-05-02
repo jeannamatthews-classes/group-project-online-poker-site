@@ -12,9 +12,9 @@
 
 4. Once you have entered a username and Game code hit the "Join Game" button.
 
-## Poker Rules
+## 💰 Poker Rules 💰
 
-# How to Play
+# 🎰 How to Play 🎰
 
 At the start of the game the person directly to the left of the dealer is labeled the small blind. This person is forced to bet half of the minimum bet at the start of each game. After the small
 blind is the big blind, where they are forced to bet the minimum bet. After the blinds are placed out, the first betting round commences. 
@@ -28,7 +28,7 @@ This process is the same for the second third and fourth round of bets. Once all
 
 A hand is considered the best group of 5 cards that you can make combining your personal cards with the five cards from the community board. The ranks of different hands is described below.
 
-# Hand Ranks
+# 🃏 Hand Ranks 🃏
 
 1. Straight Flush - Five cards all in a row of the same suit
 2. Four of a Kind - Four cards that have the same value
