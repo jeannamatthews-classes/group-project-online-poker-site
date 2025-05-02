@@ -10,9 +10,14 @@ class Player {
     this.hasActed = false;
   }
 
-  resetForNewRound() {
+  resetForNewHand() { // call at new hand
     this.hand = [];
+    this.hasActed = false;
     this.folded = false;
+    this.currentBet = 0;
+  }
+
+  resetForNewRound() { // call at new round
     this.currentBet = 0;
     this.hasActed = false;
   }
@@ -106,6 +111,7 @@ class TexasHoldemGame {
       }
 
       this.currentTurnIndex = (this.dealerIndex + 1) % this.players.length;
+      this.players.forEach(player => player.resetForNewRound());
 
   }
 
@@ -119,7 +125,7 @@ class TexasHoldemGame {
     console.log(JSON.stringify(this.deck));
     this.shuffleDeck();
     console.log(JSON.stringify(this.deck));
-    this.players.forEach(player => player.resetForNewRound());
+    this.players.forEach(player => player.resetForNewHand());
     this.dealHoleCards();
     this.bettingRound = 1;
     this.pot = 0;
