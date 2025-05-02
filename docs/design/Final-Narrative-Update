@@ -1,0 +1,12 @@
+Update for the week of May 3rd 2025:
+
+Since presenting on Tuesday we had two main things we needed to finish. Bug fix and update the game state User Interface. I will describe each part in detail below.
+
+Bug Fix: There were three main bugs we needed to fix. The first bug was pretty simple; users were unable to reraise after one person had already raised in a given turn. This was fixed by
+adjusting the logic and making sure that each turn followed exact poker rules and would not advance to the next turn prematurely. The next issue we ran into was that while attempting to make some
+minor changes to our code The game stopped working altogether. This was because the hasActed was not being set to false at the beginning of the round. This was recently fixed and pushed. The final
+bug we needed to fix before submitting the project was that the game would not function properly when adding more than 2 players. ** once fixed please add what we did to fix it here **.
+
+UI Changes: When presenting on tuesday our UI was far from finished. The home page was pretty close to what we wanted it to be, but the game page did not look good at all. The main changes to the
+game page UI we wanted to make were, updating seat locations, improving the text that displayed how much players had bet and how much money they had, and finally updating the location of the community
+cards and the total value of the pot. All of these UI changes are being worked on currently and will be pushed to the final version of the project.
