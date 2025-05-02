@@ -2,7 +2,7 @@
 
 *Instructions on how to join a game, and once you are in how to play!*
 
-## Joining a Game
+# Joining a Game
 
 1. Open the website up in your browswer
 
@@ -12,7 +12,7 @@
 
 4. Once you have entered a username and Game code hit the "Join Game" button.
 
-## 💰 Poker Rules 💰
+# 💰 Poker Rules 💰
 
 ### 🎰 How to Play 🎰
 
