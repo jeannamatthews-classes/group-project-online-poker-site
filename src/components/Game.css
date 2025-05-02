@@ -142,3 +142,91 @@
   font-weight: bold;
 }
 
+
+
+.seat {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 16px;
+  margin: 8px;
+  text-align: center;
+  background: #474c44;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  max-width: 180px;
+}
+
+.seat--active {
+  border-color: #007bff;
+}
+
+.seat--missing {
+  color: #888;
+  font-style: italic;
+}
+
+.seat__name {
+  font-size: 1.25rem;
+  margin: 0 0 8px;
+}
+
+.seat__cards {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.seat__cards img {
+  width: 30px;
+  height: 45px;
+}
+
+.seat__info {
+  display: flex;
+  justify-content: space-around;
+  font-size: 0.9rem;
+}
+.players-info .seat {
+  position: absolute !important;
+}
+/*Left center*/
+.players-info .seat-1 {
+  top: 40%;
+  left: -5.5%;
+  transform: translateX(75%);
+}
+
+/* Center right */
+.players-info .seat-2 {
+  top: 40%;
+  right: 3.5%;
+  transform: translateY(-10%);
+}
+
+/* lower left */
+.players-info .seat-3 {
+  bottom: 2%;
+  right: 61%;
+  transform: translateY(0%);
+}
+
+/* bottom RIGHT */
+.players-info .seat-4 {
+  bottom: 2%;
+  left: 67%;
+  transform: translateX(-50%);
+}
+
+/*  Upper left */
+.players-info .seat-5 {
+  bottom: 90%;
+  right: 61%;
+  transform: translateY(10%);
+}
+
+/* upper right */
+.players-info .seat-6 {
+  bottom: 90%;
+  left: 67%;
+  transform: translateY(-10%);
+}
