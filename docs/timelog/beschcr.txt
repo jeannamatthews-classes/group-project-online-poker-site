@@ -86,3 +86,6 @@ I also had to merge some changes since I was working on an old branch but it did
 
 
 5/1: I realized today I haven't updated my changes to the log in a bit. Doing that now.
+
+5/2:
+.5 hrs: I fixed a bug introduced in one of the more recent updates where players were considered by the server to have taken thier turns even though they hadn't. It was because the hasActed variable was not getting set in the correct place. (This was all in Logic.js)
