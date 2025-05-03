@@ -6,7 +6,7 @@ import Seat from './Seat.js';
 
 
 function Game() {
-    const serverUrl = 'http://localhost:3001/';
+    const serverUrl = `http://${process.env.REACT_APP_SERVER_IP}:3001/`;
     const { gameId, username } = useParams();
     const [gameState, setGameState] = useState({ started: false, numPlayers: 0 }); // Local copy of game state
     

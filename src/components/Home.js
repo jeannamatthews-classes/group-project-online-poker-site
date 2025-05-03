@@ -4,7 +4,7 @@ import './Home.css';
 
 function Home() {
 
-    const serverUrl = 'http://localhost:3001/';
+    const serverUrl = `http://${process.env.REACT_APP_SERVER_IP}:3001/`;
 
     const[username, setUsername] = useState('');
       const[gameId, setGameId] = useState('');

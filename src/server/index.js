@@ -68,7 +68,7 @@ app.post('/state', (req, res) => {
   * of the player whose turn it is.
   */
 app.post('/call', (req, res) => {
-  console.log('Player ' + req.body.player + ' called.');
+  console.log(`[REQ] Call/check from player ${req.body.player} in game ${req.body.game}`);
   games.get(req.body.gameId).call(req.body.player);
   res.sendStatus(200);
 });
@@ -82,7 +82,7 @@ app.post('/call', (req, res) => {
   * the game logic.
   */
 app.post('/fold', (req, res) => {
-  console.log('Player ' + req.body.player + ' folded.');
+  console.log(`[REQ] Fold from player ${req.body.player} in game ${req.body.game}`);
   games.get(req.body.gameId).fold(req.body.player);
   res.sendStatus(200);
 });
@@ -95,7 +95,7 @@ app.post('/fold', (req, res) => {
   * the game logic.
   */
 app.post('/raise', (req, res) => {
-  console.log('Player ' + req.body.player + ' bet ' + req.body.amount + '.');
+  console.log(`[REQ] Raise of ${req.body.amount} from player ${req.body.player} in game ${req.body.game}`);
   games.get(req.body.gameId).raise(req.body.player, req.body.amount);
   res.sendStatus(200);
 });

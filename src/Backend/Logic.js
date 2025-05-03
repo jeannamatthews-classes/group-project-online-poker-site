@@ -224,6 +224,7 @@ class TexasHoldemGame {
     player.currentBet += callAmount;
     player.hasActed = true;
     this.pot += callAmount;
+
     this.nextTurn();
   }
 
