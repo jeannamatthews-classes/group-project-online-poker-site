@@ -13,7 +13,6 @@ function Home() {
       const handleJoinGame = async () => { 
           if(username.trim() !== ''){
               localStorage.setItem('username', username);
-              navigate('/game/' + gameId + '/' + username);
         
             try {
               
@@ -25,11 +24,15 @@ function Home() {
 
             } catch (error) {
               console.log(error);
+              console.log(`Error sending game join request from player ${username} for game ${gameId}`);
             }
           }
           else{
               alert('Please Enter A Username Before Joining the Game');
           }
+
+    
+          navigate('/game/' + gameId + '/' + username);
       }
 
     return (

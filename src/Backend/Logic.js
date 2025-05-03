@@ -10,16 +10,22 @@ class Player {
     this.hasActed = false;
   }
 
-  resetForNewRound() {
+  resetForNewHand() { // call at new hand
     this.hand = [];
+    this.hasActed = false;
     this.folded = false;
+    this.currentBet = 0;
+  }
+
+  resetForNewRound() { // call at new round
     this.currentBet = 0;
     this.hasActed = false;
   }
 }
 
 class TexasHoldemGame {
-  constructor(playerName = "You") {
+  constructor(gameId, playerName = "You") {
+    this.gameId = gameId;
     this.deck = [];
     this.players = [new Player(playerName, true)];
     this.communityCards = [];
@@ -33,13 +39,13 @@ class TexasHoldemGame {
     this.bbIndex = 0;
     this.started = false;
 
-    console.log('New game created.');
+    console.log(`[GAME ${this.gameId}] Game initialized.`);
   }
 
   addPlayer(name) {
     if (!(this.players.some(p => p.name === name))) {
     this.players.push(new Player(name));
-    console.log(`Added player ${name} to the game.`);
+    console.log(`[GAME ${this.gameId}] Added player ${name}.`);
       }
   }
 
@@ -49,6 +55,7 @@ class TexasHoldemGame {
   }
 
   start() {
+      console.log(`[GAME ${this.gameId}] Starting game.`);
       this.started = true;
       this.newHand();
   }
@@ -61,7 +68,7 @@ class TexasHoldemGame {
     do {
       this.currentTurnIndex = (this.currentTurnIndex + 1) % this.players.length;
     } while (this.players[this.currentTurnIndex].folded);
-    console.log(`Waiting for ${this.players[this.currentTurnIndex].name}...`);
+    console.log(`[GAME ${this.gameId}] Waiting for ${this.players[this.currentTurnIndex].name}...`);
   }
 
   isBettingRoundOver() {
@@ -74,24 +81,24 @@ class TexasHoldemGame {
   }  
 
   nextRound() {
-        console.log(`Starting betting round ${this.bettingRound}`);
+        console.log(`[GAME ${this.gameId}] Starting betting round ${this.bettingRound}`);
 
         switch (this.bettingRound) {
           case 1: //preflop
             this.communityCards.push(this.deck.pop());
             this.communityCards.push(this.deck.pop());
             this.communityCards.push(this.deck.pop());
-            console.log(`Flop dealt. Community cards: ${JSON.stringify(this.communityCards)}`);
+            console.log(`[GAME ${this.gameId}] Flop dealt. Community cards: ${JSON.stringify(this.communityCards)}`);
             this.bettingRound++;
             break;
           case 2: //postflop
             this.communityCards.push(this.deck.pop());
-            console.log(`Flop dealt. Community cards: ${JSON.stringify(this.communityCards)}`);
+            console.log(`[GAME ${this.gameId}] Turn dealt. Community cards: ${JSON.stringify(this.communityCards)}`);
             this.bettingRound++;
             break;
           case 3: //postturn
             this.communityCards.push(this.deck.pop());
-            console.log(`Flop dealt. Community cards: ${JSON.stringify(this.communityCards)}`);
+            console.log(`[GAME ${this.gameId}] River dealt. Community cards: ${JSON.stringify(this.communityCards)}`);
             this.bettingRound++;
             break;
           case 4:
@@ -106,20 +113,19 @@ class TexasHoldemGame {
       }
 
       this.currentTurnIndex = (this.dealerIndex + 1) % this.players.length;
+      this.players.forEach(player => player.resetForNewRound());
 
   }
 
 
   newHand() {
 
-    console.log('Starting new hand...');
+    console.log(`[GAME ${this.gameId}] Starting new hand...`);
     if (this.players.length < 2) return; // Ensure at least 2 players
 
     this.resetDeck();
-    console.log(JSON.stringify(this.deck));
     this.shuffleDeck();
-    console.log(JSON.stringify(this.deck));
-    this.players.forEach(player => player.resetForNewRound());
+    this.players.forEach(player => player.resetForNewHand());
     this.dealHoleCards();
     this.bettingRound = 1;
     this.pot = 0;
@@ -127,10 +133,10 @@ class TexasHoldemGame {
     this.postBlinds();
     this.currentTurnIndex = (this.dealerIndex + 1) % this.players.length;
 
-    console.log(`Dealer is now ${this.players[this.dealerIndex].name}`);
-    console.log(`Now waiting for ${this.players[this.currentTurnIndex].name}`);
+    console.log(`[GAME ${this.gameId}] Dealer is now ${this.players[this.dealerIndex].name}`);
+    console.log(`[GAME ${this.gameId}] Waiting for ${this.players[this.currentTurnIndex].name}...`);
     this.players.map((p) => {
-        console.log(p.hand);
+        //console.log(p.hand);
       });
   }
 
@@ -174,7 +180,9 @@ class TexasHoldemGame {
   getGameState(playerName) {
     let player = this.getPlayer(playerName);
     if ( typeof player === "undefined") {
-      console.log(`Player ${playerName} was not found.`);
+      console.log(`[ERROR] Player ${playerName} was not found.`);
+      // If player hasn't registered yet, don't send game state. Set started to false so that the Game component doesn't attempt to render information that it doesn't have.
+      return { started: false, numPlayers: this.players.length };
     }
 
     const playerInfo = this.players.map((p) => {
@@ -196,7 +204,8 @@ class TexasHoldemGame {
       whoseTurn: this.players[this.currentTurnIndex].name,
       smallBlind: this.players[this.sbIndex].name,
       largeBlind: this.players[this.bbIndex].name,
-      players: playerInfo
+      players: playerInfo,
+      numPlayers: this.players.length
     };
   }
 

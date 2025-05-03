@@ -8,11 +8,14 @@ import Seat from './Seat.js';
 function Game() {
     const serverUrl = 'http://localhost:3001/';
     const { gameId, username } = useParams();
-    const [gameState, setGameState] = useState({});
-    const [gameStarted, setGameStarted] = useState(false);
-    const [showBetInput, setShowBetInput] = useState(false);
-    const [betAmount, setBetAmount] = useState('');
-    const [submittedBet, setSubmittedBet] = useState(null);
+    const [gameState, setGameState] = useState({ started: false, numPlayers: 0 }); // Local copy of game state
+    
+    //const [username, setUsername] = useState(''); //Username that is stored for later use
+    const [gameStarted, setGameStarted] = useState(false); //Variable that lets us know whether the game has started
+    const [showBetInput, setShowBetInput] = useState(false); // Boolean variable that decides if the input box for betting should appear or not
+    const [betAmount, setBetAmount] = useState(''); //Displayed as the amount the user types in
+    const [submittedBet, setSubmittedBet] = useState(null); //The bet amount that is stored for later use
+    let [Pot, setPot] = useState(Number(0));
 
     // Know when turn is defined and if it's this user's turn
     const turnDefined = gameState.whoseTurn !== undefined;
@@ -21,19 +24,47 @@ function Game() {
     const seats = Array(TOTAL_SEATS).fill(null);
     // Subscribe to SSE updates
     useEffect(() => {
-        const eventSrc = new EventSource(
-            `${serverUrl}events?player=${username}&gameId=${gameId}`
-        );
-        eventSrc.onmessage = (event) => {
-            const data = JSON.parse(event.data);
-            if (!data.error) {
-                setGameState(data);
-            } else {
-                console.error('SSE error:', data.error);
-            }
-        };
-        return () => eventSrc.close();
-    }, [serverUrl, username, gameId]);
+    /*
+      async function fetchState() {
+        const eventSrc = new EventSource(serverUrl + `events?player=${username}&gameId=${gameId}`);
+      
+        eventSrc.onmessage = function (event) {
+          setGameState(JSON.parse(event.data)); // TODO: adjust once data format is decided
+          //console.log(JSON.parse(event.data));
+        }
+      }
+
+      fetchState();
+      */
+
+      async function fetchState() {
+
+      console.log(`gameId: ${gameId}, username: ${username}`);
+      try {
+        const response = await fetch(serverUrl + 'state', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({gameId: gameId, player: username })
+        });
+
+        const data = await response.json();
+        if (!response.ok) {
+          console.error('Error getting state: ' + data.error);
+        } else {
+          setGameState(data);
+        }
+      } catch (error) {
+        console.error('Error sending state request: ' + error);
+      }
+      }
+
+
+      
+      const interval = setInterval(() => {
+        fetchState();
+      }, 500);
+
+    }, []);
 
     (gameState.players || []).forEach(p => {
         let idx;
@@ -51,17 +82,24 @@ function Game() {
 
     // Handle starting the game
     const handleStartGame = async () => {
+
+        console.log(`[REQ] Sending start request...`);
+      
         try {
             const response = await fetch(serverUrl + 'start', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ gameId }),
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({gameId: gameId, player: username})
             });
+
+            const data = await response.json();
             if (!response.ok) {
-                console.error('Start failed:', await response.json());
-                return;
+              console.error(`Game start request failed: ${data.error}`);
+              return;
             }
-            setGameStarted(true);
+
+            setGameStarted(true); // There's a 'started' variable in the gameState obj, is this one redundant?
+
         } catch (error) {
             console.error(error);
         }
@@ -114,17 +152,18 @@ function Game() {
             {!(gameState.started || gameStarted) ? (
                 <div className="bottom-content">
                     <h1 className="username-text">
-                        {username || 'Guest'},
-                        {gameState.players && gameState.players.length > 1
-                            ? ' Press start to begin the game.'
-                            : ' Need one more player.'}
+                      { username || 'Guest' },
+                      { (gameState.numPlayers >= 2) ?
+                      'Press start to begin the game.' :
+                      'Need one more player.'
+                      }
                     </h1>
-                    {gameState.players && gameState.players.length > 1 && (
-                        <div className="button-container">
-                            <button className="game-button" onClick={handleStartGame}>
-                                Start
-                            </button>
-                        </div>
+                    { ( gameState.numPlayers >= 2) && (
+                    <div className="button-container">
+                        <button className="game-button" onClick={handleStartGame}>
+                          Start
+                        </button>
+                    </div>
                     )}
                 </div>
             ) : (
