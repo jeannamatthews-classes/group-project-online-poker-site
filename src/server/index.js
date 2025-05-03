@@ -15,10 +15,7 @@ import { TexasHoldemGame } from '../Backend/Logic.js';
 let games = new Map();
 
 // Enables CORS, necessary to prevent browser blocking connections
-app.use(cors({
-  origin: 'http://localhost:3000',
-  methods: ['POST']
-}));
+app.use(cors());
 
 // Automatic (and safe) JSON parsing
 app.use(express.json());
@@ -36,11 +33,10 @@ app.use(express.json());
  * when there are at least 2 players for simplicity's sake.
  */
 app.post('/game', (req, res) => {
-  console.log(req.body)
-  console.log('Recieved game join request for ' + req.body.gameId);
+  console.log(`[REQ] Join from player ${req.body.player} for game ${req.body.gameId}`);
 
   if (!games.has(req.body.gameId)) {
-    games.set(req.body.gameId, new TexasHoldemGame(req.body.player));
+    games.set(req.body.gameId, new TexasHoldemGame(req.body.gameId, req.body.player));
   }
     games.get(req.body.gameId).addPlayer(req.body.player);
 
@@ -48,8 +44,9 @@ app.post('/game', (req, res) => {
 })
 
 app.post('/start', (req, res) => {
-  console.log('Starting game ' + req.body.gameId);
+  console.log(`[REQ] Start game ${req.body.gameId} from ${req.body.player}`);
   games.get(req.body.gameId).start();
+  res.sendStatus(200);
 })
 
 /* Sends a copy of the current game state, as a JSON object, to the client
@@ -67,9 +64,12 @@ app.post('/start', (req, res) => {
   * JASON: I need a function TexasHoldemGame::getGameState(player) that returns all of
   * the information that needs to be on that player's UI.
   */
-app.get('/state', (req, res) => {
+app.post('/state', (req, res) => {
   //console.log('Client ' + req.body.player + ' requested game state.');
   res.json(games.get(req.body.gameId).getGameState(req.body.player));
+  //console.log(`[REQ] State request from ${req.body.player} for game ${req.body.gameId}`);
+
+  //res.json(games.get(req.query.gameId).getGameState(req.query.player));
 })
 
 /* Updates the game state in response to a call (or check) request from a player's
@@ -116,7 +116,7 @@ app.post('/raise', (req, res) => {
 
 
 /* Keeps clients updated on game state.
- *
+ *tttz
  * Request expects fields 'player' and 'gameId'.
  *
  * This is probably inefficient, but I couldn't figure out how to make it better for now.
@@ -127,7 +127,7 @@ app.get('/events', (req, res) => {
   res.setHeader('Cache-Control', 'no-cache');
   res.setHeader('Connection', 'keep-alive');
 
-  console.log(`query: ${JSON.stringify(req.query)}`);
+  console.log(`[REQ] Event subscription from ${req.query.player} for game ${req.query.gameId}`);
 
   const interval = setInterval(() => {
     // if game state changed, get and send to client in SSE format

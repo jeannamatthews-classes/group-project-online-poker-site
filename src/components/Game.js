@@ -9,7 +9,7 @@ function Game(){
 
     const serverUrl = 'http://localhost:3001/';
     const { gameId, username } = useParams();
-    const [gameState, setGameState] = useState({}); // Local copy of game state
+    const [gameState, setGameState] = useState({ started: false, numPlayers: 0 }); // Local copy of game state
     
     //const [username, setUsername] = useState(''); //Username that is stored for later use
     const [gameStarted, setGameStarted] = useState(false); //Variable that lets us know whether the game has started
@@ -20,23 +20,65 @@ function Game(){
 
     // Subscribe to game state updates from the server
     useEffect(() => {
-      const eventSrc = new EventSource(serverUrl + `events?player=${username}&gameId=${gameId}`);
+    /*
+      async function fetchState() {
+        const eventSrc = new EventSource(serverUrl + `events?player=${username}&gameId=${gameId}`);
       
-      eventSrc.onmessage = function (event) {
-        setGameState(JSON.parse(event.data)); // TODO: adjust once data format is decided
-        console.log(JSON.parse(event.data));
+        eventSrc.onmessage = function (event) {
+          setGameState(JSON.parse(event.data)); // TODO: adjust once data format is decided
+          //console.log(JSON.parse(event.data));
+        }
       }
+
+      fetchState();
+      */
+
+      async function fetchState() {
+
+      console.log(`gameId: ${gameId}, username: ${username}`);
+      try {
+        const response = await fetch(serverUrl + 'state', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({gameId: gameId, player: username })
+        });
+
+        const data = await response.json();
+        if (!response.ok) {
+          console.error('Error getting state: ' + data.error);
+        } else {
+          setGameState(data);
+        }
+      } catch (error) {
+        console.error('Error sending state request: ' + error);
+      }
+      }
+
+
+      
+      const interval = setInterval(() => {
+        fetchState();
+      }, 500);
+
     }, []);
 
     const handleStartGame = async () => {
+
+        console.log(`[REQ] Sending start request...`);
       
         try {
 
             const response = await fetch(serverUrl + 'start', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({gameId: gameId})
+                body: JSON.stringify({gameId: gameId, player: username})
             });
+
+            const data = await response.json();
+            if (!response.ok) {
+              console.error(`Game start request failed: ${data.error}`);
+              return;
+            }
 
         } catch (error) {
             console.log(error);
@@ -99,12 +141,12 @@ function Game(){
                 <div className="bottom-content">
                     <h1 className="username-text">
                       { username || 'Guest' },
-                      { ( gameState.players && (gameState.players.length > 1)) ?
+                      { (gameState.numPlayers >= 2) ?
                       'Press start to begin the game.' :
                       'Need one more player.'
                       }
                     </h1>
-                    { ( gameState.players && (gameState.players.length > 1)) &&
+                    { ( gameState.numPlayers >= 2) &&
                     <div className="button-container">
                         <button className="game-button" onClick={handleStartGame}>Start</button>
                     </div>
