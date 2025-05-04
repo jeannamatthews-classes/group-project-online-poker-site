@@ -130,6 +130,7 @@ class TexasHoldemGame {
     this.bettingRound = 1;
     this.pot = 0;
     this.communityCards = [];
+    this.dealerIndex = (this.dealerIndex + 1) % this.players.length;
     this.postBlinds();
     this.currentTurnIndex = (this.dealerIndex + 1) % this.players.length;
 
