@@ -219,27 +219,27 @@
 /* lower left */
 .players-info .seat-3 {
   bottom: 2%;
-  right: 61%;
+  right: 63%;
   transform: translateY(0%);
 }
 
 /* bottom RIGHT */
 .players-info .seat-4 {
   bottom: 2%;
-  left: 67%;
+  left: 70%;
   transform: translateX(-50%);
 }
 
 /*  Upper left */
 .players-info .seat-5 {
-  bottom: 90%;
-  right: 61%;
+  bottom: 75%;
+  right: 63%;
   transform: translateY(10%);
 }
 
 /* upper right */
 .players-info .seat-6 {
-  bottom: 90%;
-  left: 67%;
+  bottom: 70.5%;
+  left: 63%;
   transform: translateY(-10%);
 }
