@@ -6,7 +6,7 @@ Make sure you have some sort of IDE or software installed to be able to run Java
 
 ## Setup 💻 
 
-1. Install Node.js on your system (https://nodejs.org/en/download)
+1. Install Node.js 23 on your system (https://nodejs.org/en/download)
    
 2. Install react router dom ( run npm install react-router-dom on your system)
    
