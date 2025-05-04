@@ -94,12 +94,15 @@
     background-color: #1b4364;
   }
 
-.center-display {
-  text-align: center;
-  margin-top: 20px;
-  color: black;
-
-}
+  .center-display {
+    position: absolute;
+    top: 42%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: black;
+    margin: 0;
+  }
 
 .players-info {
   display: flex;
@@ -142,17 +145,27 @@
   font-weight: bold;
 }
 
+.community-card-display{
+  position: absolute;
+  top: 46.5%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  z-index: 1;
+}
+
 
 
 .seat {
   border: 1px solid #ccc;
   border-radius: 8px;
-  padding: 16px;
+  padding: 30px;
   margin: 8px;
   text-align: center;
   background: #474c44;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  max-width: 180px;
+  max-width: 240px;
 }
 
 .seat--active {
@@ -177,8 +190,8 @@
 }
 
 .seat__cards img {
-  width: 30px;
-  height: 45px;
+  width: 60px;
+  height: 95px;
 }
 
 .seat__info {
