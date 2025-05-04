@@ -95,3 +95,4 @@ I also had to merge some changes since I was working on an old branch but it did
 1 hr: I merged Cody's UI changes and mine from my last log thing.
 3 hr: I set the project up to be on the actual COSI server. For this, I had to set up the environment on the VM and change the code so that you could choose the server URL so that we could still test locally. The former took up most of the time because ubuntu was being fussy and there was a bug in the package.json.
 3 hr: I figured out an issue with the API not getting requests, I fixed a bug where a box would show up saying 'No player info', and I fixed a bug where the blinds weren't properly cycling, and I did testing on the actual website. I think I did some other stuff but I'm all brained out and I don't remember.
+.5 hr: Jason and I had to figure out why the environment variable wasn't getting set properly on his machine.

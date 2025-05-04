@@ -13,10 +13,12 @@ Make sure you have some sort of IDE or software installed to be able to run Java
 3. Install the cors package (npm install cors)
 
 ## Running The Game 🎰 🃏 💰
+
 1. Open two terminal windows
+
 2. CD both terminal windows into the Poker-UI directory (or whatever the React Project is titled on your system)
    
-3. To start the client (browser app): REACT_APP_SERVER_IP=[server ip] npm start
+3. To start the client (browser app): `REACT_APP_SERVER_IP=[server ip] npm start` on Linux or `setx REACT_APP_SERVER_IP "[server ip]"` and then `npm start` on Windows. If on Windows, you should be using Powershell. 
    
 4. Which server ip should you use when starting the client? If you want to test on the local machine, put localhost. If you want to connect to the production server, put 128.153.145.204.
    
