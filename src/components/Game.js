@@ -21,7 +21,7 @@ function Game() {
     const turnDefined = gameState.whoseTurn !== undefined;
     const isMyTurn = gameState.whoseTurn === username;
     const TOTAL_SEATS = 6;
-    const seats = Array(TOTAL_SEATS).fill(null);
+    const seats = Array(gameState.numPlayers).fill(null);
     // Subscribe to SSE updates
     useEffect(() => {
     /*
