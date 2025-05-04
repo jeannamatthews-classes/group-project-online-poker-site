@@ -154,8 +154,8 @@ function Game() {
                     <h1 className="username-text">
                       { username || 'Guest' },
                       { (gameState.numPlayers >= 2) ?
-                      'Press start to begin the game.' :
-                      'Need one more player.'
+                      ' Press start to begin the game.' :
+                      ' Need one more player.'
                       }
                     </h1>
                     { ( gameState.numPlayers >= 2) && (

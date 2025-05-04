@@ -106,4 +106,16 @@ set up the website and use it. After creating the instruction manual, I uploaded
 Sunday: Minor housekeeping to github (30 minutes).
 
 
+May 3rd 2025 Timelog:
+
+Monday - Friday: Minimal work was accomplished over these days. I was finished with my part of the project, and had other finals to worry about. I made minor visual changes to the UI and some
+slight changes to the CSS file but for the most part I did not work on a ton code wise. I did however deal with a lot of housekeeping stuff. I wrote all of the manuals, updated the planning
+sheet, made sure my timelogs were correct and other end of semester check list items. Overall I spent most of my time over these days just doing some housekeeping stuff making
+sure our project was ready to submit (3 hours).
+
+Saturday: Saturday we ran into a lot of issues. First the poker logic was not handling tiebreakers properly, so I made some changes to Logic.js to try to attempt to fix those tiebreakers. I was
+able to fix some issues while McGee was at his baseball game, but once he was back I handed it off to him. I then went and finished up Codys work on the Game UI. I made some changes to the size
+of the cards, the location of the community cards and the location of the pot and message that tells the user how much they bet. I also finished submitting any other things
+needed to be done with this project (4 hours).
+
 
