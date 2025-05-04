@@ -4,7 +4,7 @@
 
 # Joining a Game
 
-1. Open the website up in your browswer
+1. Open the website up in your browser (http://128.153.145.204:3000)
 
 2. Create a username (make sure every player has a different username)
 

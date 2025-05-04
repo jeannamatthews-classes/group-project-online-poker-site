@@ -3,6 +3,14 @@
 
 ## Usage
 
+You can use the website, or you can build the project yourself.
+
+#### Website
+
+The website will be at http://128.153.145.204:3000/ for as long as it's up.
+
+#### Building It
+
 Make sure to install the dependencies first: `npm install create-react-app cors express`
 
 To start the client (browser app): `REACT_APP_SERVER_IP=[server ip] npm start`
