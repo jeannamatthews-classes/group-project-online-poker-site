@@ -104,6 +104,7 @@ class TexasHoldemGame {
           case 4:
             let winners = this.getWinners();
             let prize = this.pot / winners.length;
+            console.log(this.pot);
             winners.forEach((p) => {
               p.chips += prize;
             });
@@ -291,112 +292,109 @@ class TexasHoldemGame {
     const valueCounts = {};
     const suitCounts = {};
     const values = [];
-  
+   
     for (const card of cards) {
       const [value, suit] = [card[0], card[1]];
       valueCounts[value] = (valueCounts[value] || 0) + 1;
       suitCounts[suit] = (suitCounts[suit] || 0) + 1;
       values.push(value);
     }
-  
-    const uniqueValues = [...new Set(values)];
+     const uniqueValues = [...new Set(values)];
     const sortedIndices = uniqueValues.map(v => valuesOrder.indexOf(v)).sort((a, b) => b - a);
     const isFlush = Object.values(suitCounts).some(count => count >= 5);
-  
+   
     const straights = [];
     for (let i = 0; i <= sortedIndices.length - 5; i++) {
       if (sortedIndices[i] - sortedIndices[i + 4] === 4) {
         straights.push(sortedIndices[i]);
       }
     }
-  
+   
     if ([12, 0, 1, 2, 3].every(v => sortedIndices.includes(v))) {
       straights.push(3);
     }
-  
-    const counts = Object.entries(valueCounts).map(([v, c]) => [c, valuesOrder.indexOf(v)]);
+     const counts = Object.entries(valueCounts).map(([v, c]) => [c, valuesOrder.indexOf(v)]);
     counts.sort((a, b) => b[0] - a[0] || b[1] - a[1]);
-  
+   
     const [count1, val1] = counts[0];
     const [count2, val2] = counts[1] || [0, 0];
     const kickers = counts.map(([c, v]) => v);
-  
-    if (isFlush && straights.length) {
+     if (isFlush && straights.length) {
       return {
-        score: 9,
+        score: 160 + valuesOrder.indexOf(val1),
         description: "Straight flush",
-        tiebreaker: [straights[0]]
+        tiebreaker: [valuesOrder.indexOf(val1)]
       };
     }
-  
+   
     if (count1 === 4) {
       return {
-        score: 8,
+        score: 140 + valuesOrder.indexOf(val1),
         description: "Four of a kind",
         tiebreaker: [val1, ...kickers.filter(v => v !== val1)]
       };
     }
-  
+   
     if (count1 === 3 && count2 === 2) {
       return {
-        score: 7,
+        score: 120 + valuesOrder.indexOf(val1),
         description: "Full house",
         tiebreaker: [val1, val2]
       };
     }
-  
-    if (isFlush) {
+     if (isFlush) {
       const flushCards = cards.filter(card => suitCounts[card[1]] >= 5);
       const flushValues = flushCards.map(card => valuesOrder.indexOf(card[0])).sort((a, b) => b - a);
       return {
-        score: 6,
+        score: 100 + flushValues[0],
         description: "Flush",
-        tiebreaker: flushValues.slice(0, 5)
+        tiebreaker: flushValues
       };
     }
-  
+   
     if (straights.length) {
       return {
-        score: 5,
+        score: 80 + valuesOrder.indexOf(straights[0]),
         description: "Straight",
-        tiebreaker: [straights[0]]
+        tiebreaker: [valuesOrder.indexOf(straights[0])]
       };
     }
-  
+   
     if (count1 === 3) {
       return {
-        score: 4,
+        score: 60 + valuesOrder.indexOf(val1),
         description: "Three of a kind",
         tiebreaker: [val1, ...kickers.filter(v => v !== val1).slice(0, 2)]
       };
     }
-  
+   
     if (count1 === 2 && count2 === 2) {
       const val3 = kickers.find(v => v !== val1 && v !== val2);
       const pairs = [val1, val2].sort((a, b) => b - a);
       return {
-        score: 3,
+        score: 40 + valuesOrder.indexOf(pairs[0]),
         description: "Two pair",
         tiebreaker: [...pairs, val3]
       };
     }
-  
+   
     if (count1 === 2) {
       return {
-        score: 2,
+        score: 20 + valuesOrder.indexOf(val1),
         description: "One pair",
         tiebreaker: [val1, ...kickers.filter(v => v !== val1).slice(0, 3)]
       };
     }
-  
+   
     return {
-      score: 1,
+      score: 0 + valuesOrder.indexOf(sortedIndices[0]),
       description: `High card: ${valuesOrder[sortedIndices[0]]}`,
       tiebreaker: sortedIndices.slice(0, 5)
     };
   }
-  
-}
+ 
+ 
+ }
 
 module.exports = { TexasHoldemGame };
   
