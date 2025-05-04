@@ -1,0 +1,4 @@
+Our plan to maintain our project after CS350 ends is pretty simple. Since our website is being hosted on a COSI server it should be able to remain open for the near future without much of a problem.
+While maintining the website and its server itself will be relatively simple, if we attempt to maintain the game we will have to fix any bugs we come across while playing the game as it remains
+online. Whether it be visual bugs, issues with poker rules or whatever way our users find a way to break a game we will likely continue to update all of our JS files to fix these issues as we
+discover them.
