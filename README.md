@@ -13,6 +13,8 @@ The website will be at http://128.153.145.204:3000/ for as long as it's up.
 
 Make sure to install the dependencies first: `npm install create-react-app cors express`
 
+IMPORTANT: Make sure you're using Node version 23!
+
 To start the client (browser app): `REACT_APP_SERVER_IP=[server ip] npm start` for Linux/Mac or `setx REACT_APP_SERVER_IP "[server ip]"` and then `npm start` for Windows. If on Windows, you should be using Powershell.
 
 To start the server (backend): `node src/server/index.js`
